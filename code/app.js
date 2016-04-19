@@ -5,6 +5,11 @@ var bodyParser = require("body-parser");
 var app = express();
 var fs = require('fs');
 
+// using npm printer
+var printer = require("printer/lib"),
+    filename = "output/utopia.txt";
+
+// store user input in a local JSON file
 var JSONpath = 'data';
 var JSONfile = 'input-data.JSON';
 
@@ -16,10 +21,12 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/'));//serve diectory this file is in
+console.log(__dirname + '/');
 
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+// app.get('/', function(req, res) {
+//   res.sendFile(__dirname + '/index.html');
+// });
 
 app.post('/input', function(req, res) {
   var Twitter = req.body.twt;
@@ -61,7 +68,7 @@ app.post('/input', function(req, res) {
   });
 });
 
-var port = 3000;
+var port = 8080;
 app.listen(port, function() {
   console.log("Started on port: " + port);
 });
@@ -92,7 +99,7 @@ function textAssemble() {
 
 }
 
-textSample();
+//textSample();
 // text samples to compare tf-idf
 function textSample() {
   // fs.readdirSync('data/sampleTxt', 'utf8', function(err, files) {
@@ -103,18 +110,45 @@ function textSample() {
   //       console.log(files[i]);
   //     }
   //     console.log("test");
-  var sampleData = ['data1.txt', 'data2.txt', 'data3.txt', 'data4.txt', 'data5.txt'];
-  for (var i = 0; i < sampleData.length; i++) {
+    var printTxt;
+    var sampleData = ['data1.txt', 'data2.txt', 'data3.txt', 'data4.txt', 'data5.txt'];
+    for (var i = 0; i < sampleData.length - 4; i++) {
       fs.readFile('data/sampleTxt/' + sampleData[i], 'utf8', function(err, data) {
         if (err) {
           console.log(err);
         } else {
-          console.log(data);
+          printTxt = data;
+          fs.writeFile('output/utopia.txt', printTxt, 'utf8', function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("file ready to print");
+              sendToPrinter();
+            }
+          });
         }
       });
     }
-  //   }
-  // });
+  //if(!fs.existsSync('output/utopia.txt')){
+    //}
+}
+
+// after overwriting the file with a new version, send it to printer
+function sendToPrinter() {
+  console.log('platform:', process.platform);
+  console.log('try to print file: ' + filename);
+  if(process.platform != 'win32') {
+    printer.printFile({
+      filename: filename,
+      printer: "yumeng_printer",
+      success: function(jobID){
+        console.log("sent to printer with ID: "+jobID);
+      },
+      error:function(err){
+        console.log(err);
+      }
+    });
+  }
 }
 
 // concordance
