@@ -40,7 +40,8 @@ io.sockets.on('connection',
     socket.on('toServer',
       function(data) {
         var inputName = data.name;
-        console.log(inputName);
+        var inputHair = data.hair;
+        //console.log(inputName);
 
           // write the input to name.JSON
           fs.readFile(JSONpath + '/name.JSON', 'utf8', function(err, data) {
@@ -48,7 +49,8 @@ io.sockets.on('connection',
             // add new input
             data.unshift({
               id: new Date().getTime(),
-              name: inputName
+              name: inputName,
+              hair: inputHair
             });
             // update/rewrite the file
             fs.writeFile(JSONpath + '/name.JSON', JSON.stringify(data), function(err) {
@@ -56,6 +58,7 @@ io.sockets.on('connection',
                 console.log(err);
               } else {
                 console.log("File saved!");
+                textSample();
               }
             });
           });
@@ -70,21 +73,21 @@ io.sockets.on('connection',
 
 
 
-function getTexts(option) {
+function getTexts() {
   var selected = [];
   var selectedSize = 4;
-  fs.readFile(JSONpath + '/' + JSONfile, 'utf8', function(err, data) {
+  fs.readFile(JSONpath + '/name.JSON', 'utf8', function(err, data) {
     if (err) {
       console.log(err);
     } else {
       data = JSON.parse(data);
-      for (var i = 0; i < selectedSize; i++) {
-        if (option == 0) {
-          selected[i] = data[i].TwitterUser;
-        } else if (option == 1) {
-          selected[i] = data[i].TextInput;
-        }
-      }
+      // for (var i = 0; i < selectedSize; i++) {
+      //   if (option == 0) {
+      //     selected[i] = data[i].TwitterUser;
+      //   } else if (option == 1) {
+      //     selected[i] = data[i].TextInput;
+      //   }
+      // }
       console.log(selected);
     }
   });

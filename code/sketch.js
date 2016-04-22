@@ -11,6 +11,7 @@ var over;
 
 
 // gui
+
 // start page
 var username;
 var startB;
@@ -21,9 +22,25 @@ var nextB;
 var hairB = [];
 var hairMsg;
 var tMsg1;
+var hairContinueB;
 // 2nd traveller
+var eyeMsg;
 var eyeSlider;
-
+var eyeContinueB;
+// empties
+var emptiesImg;
+var emptiesMsg;
+var emptiesD;
+var emptiesContinueB;
+// adjUniverse
+var adjMsg;
+var adjContinueB;
+// zone
+var zoneMsg;
+var zoneContinueB;
+// the End
+var endMsg;
+var endB;
 
 
 function setup() {
@@ -35,7 +52,6 @@ function setup() {
 }
 
 function draw() {
-  sendToServer();
 }
 
 function startPage() {
@@ -106,32 +122,61 @@ function greyHair2() {
       tMsg1 = createElement('h1', "Sean is 43, but he has been at this age for more than 2000 years. He is bored with his life and an adventure is badly needed. You and Sean " + nextTraveller);
       break;
   }
+  hairContinueB = createButton('Continue');
+  hairContinueB.mousePressed(frozenTraveller);
 }
 
 function frozenTraveller() {
-  
+  tMsg1.remove();
+  hairContinueB.remove();
+  eyeMsg = createElement('h1', "She can freeze time and people and stare at them as long as she wants.");
+  eyeSlider = createSlider(0, 100, 20);
+  eyeContinueB = createButton('Continue');
+  eyeContinueB.mousePressed(empties);
 }
 
 function empties() {
-
+  eyeMsg.remove();
+  eyeContinueB.remove();
+  eyeSlider.remove();
+  emptiesMsg = createElement('h1', "This is the Empties. I know it's confusing. It's just hard to describe. You can try describing it.");
+  emptiesD = createElement('textarea', "");
+  emptiesContinueB = createButton('Continue');
+  emptiesContinueB.mousePressed(adjUniverse);
 }
 
 function adjUniverse() {
-
+  emptiesMsg.remove();
+  emptiesD.remove();
+  emptiesContinueB.remove();
+  adjMsg = createElement('h1', "Welcome to the Universe of Adjectives");
+  adjContinueB = createButton('Continue');
+  adjContinueB.mousePressed(zone);
 }
 
 function zone() {
+  adjMsg.remove();
+  adjContinueB.remove();
+  zoneMsg = createElement('h1', "THE ZONE");
+  zoneContinueB = createButton('Continue');
+  zoneContinueB.mousePressed(theEnd);
 
 }
 
 function theEnd() {
+  zoneMsg.remove();
+  zoneContinueB.remove();
+  endMsg = createElement('h1', "This is where you say goodbye to your companions in this journey.");
+  endB = createButton('Write your story.');
+  endB.mousePressed(sendToServer);
 
 }
 
 function sendToServer() {
   if (over) {
     socket.emit('toServer', {
-      name: name
+      name: name,
+      hair: hairChoice
     });
     console.log("sent to server");
     over = false;
