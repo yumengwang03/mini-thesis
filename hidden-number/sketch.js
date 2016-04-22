@@ -45,11 +45,12 @@ function draw() {
 
 function Rock(posX, posY, word) {
   this.pos = createVector(0, 0);
+  this.size = createVector(120, 120);
   this.pos.set(posX, posY);
   this.word = word;
   this.wordRock = createButton(this.word);
   this.wordRock.style('background', 'url(img/Logo.jpg)');
-  this.wordRock.size(100, 120);
+  this.wordRock.size(this.size.x, this.size.y);
   this.wordRock.moved = false;
   this.wordRock.position(this.pos.x, this.pos.y);
 
@@ -58,8 +59,8 @@ function Rock(posX, posY, word) {
 
   this.update = function() {
     if (this.wordRock.moved) {
-      this.pos.x = mouseX - 20;
-      this.pos.y = mouseY - 10;
+      this.pos.x = mouseX - this.size.x/2;
+      this.pos.y = mouseY - this.size.y/2;
       this.wordRock.position(this.pos.x, this.pos.y);
     }
   };

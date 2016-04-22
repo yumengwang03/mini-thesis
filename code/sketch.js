@@ -38,20 +38,28 @@ var adjContinueB;
 // zone
 var zoneMsg;
 var zoneContinueB;
+var zoneStarted = false;
 // the End
 var endMsg;
 var endB;
 
 
 function setup() {
+  createCanvas(windowWidth, windowHeight);
   over = false;
-  socket = io.connect('http://localhost:8080');
+  //socket = io.connect('http://localhost:8080');
 
   startPage();
+
+  numberSetup();
 
 }
 
 function draw() {
+  //console.log(zoneStarted);
+  if (zoneStarted) {
+    numberDraw();
+  }
 }
 
 function startPage() {
@@ -161,6 +169,7 @@ function zone() {
   zoneContinueB = createButton('Continue');
   zoneContinueB.mousePressed(theEnd);
 
+  zoneStarted = true;
 }
 
 function theEnd() {
@@ -168,7 +177,7 @@ function theEnd() {
   zoneContinueB.remove();
   endMsg = createElement('h1', "This is where you say goodbye to your companions in this journey.");
   endB = createButton('Write your story.');
-  endB.mousePressed(sendToServer);
+  //endB.mousePressed(sendToServer);
 
 }
 
