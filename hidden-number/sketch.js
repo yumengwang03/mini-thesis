@@ -2,6 +2,7 @@ var startB;
 var started;
 var rocks = [];
 var words = [];
+var moveStarted;
 
 
 function setup() {
@@ -14,41 +15,29 @@ function setup() {
   startB.mousePressed(function() {
     started = true;
   });
-
-  for (var i = 0; i < 20; i++) {
-    var rock = createButton(words[i]);
-    var pos = createVector(random(0, width), random(0, height));
-    rock.position(pos.x, pos.y);
-    rocks.push(rock);
-    rocks[i].moved = false;
-
-    rocks[i].mousePressed(changeMoved1);
-    rocks[i].mouseReleased(changeMoved2);
-  }
-
 }
 
 function changeMoved1() {
   this.moved = true;
-  // for (var i = 0; i < 20; i++) {
-  //   console.log(rocks[i].moved);
-  // }
 };
 
 function changeMoved2() {
   this.moved = false;
-  // for (var i = 0; i < 20; i++) {
-  //   console.log(rocks[i].moved);
-  // }
 };
 
 
 function draw() {
   if (started) {
-    for (var i = 0; i < 20; i++) {
-      if (rocks[i].moved) {
-        rocks[i].position(mouseX - 20, mouseY - 10);
-      }
+    for (var i = 0; i < words.length; i++) {
+      rocks.push(new Rock(random(0, width), random(0, height), words[i]));
+    }
+    started = false;
+    moveStarted = true;
+  }
+
+  if (moveStarted) {
+    for (var i = 0; i < words.length; i++) {
+      rocks[i].update();
     }
   }
 }
@@ -58,20 +47,17 @@ function Rock(posX, posY, word) {
   this.pos = createVector(0, 0);
   this.pos.set(posX, posY);
   this.word = word;
-  this.wordRock;
-  this.moved;
-
   this.wordRock = createButton(this.word);
+  this.wordRock.style('background', 'url(img/Logo.jpg)');
+  this.wordRock.size(100, 120);
+  this.wordRock.moved = false;
   this.wordRock.position(this.pos.x, this.pos.y);
 
   this.wordRock.mousePressed(changeMoved1);
   this.wordRock.mouseReleased(changeMoved2);
 
-  this.display = function() {};
-
   this.update = function() {
-    if (moved) {
-      console.log(this.word);
+    if (this.wordRock.moved) {
       this.pos.x = mouseX - 20;
       this.pos.y = mouseY - 10;
       this.wordRock.position(this.pos.x, this.pos.y);
