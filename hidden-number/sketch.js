@@ -3,6 +3,8 @@ var started;
 var rocks = [];
 var words = [];
 var moveStarted;
+var pitSize;
+
 
 
 function setup() {
@@ -15,6 +17,8 @@ function setup() {
   startB.mousePressed(function() {
     started = true;
   });
+
+  pitSize = height / 2;
 }
 
 function changeMoved1() {
@@ -28,18 +32,30 @@ function changeMoved2() {
 
 function draw() {
   if (started) {
+    var r = 4;
+    var c = 5;
     for (var i = 0; i < words.length; i++) {
-      rocks.push(new Rock(random(0, width), random(0, height), words[i]));
+      var unitX = width / c;
+      var unitY = height / r;
+      // sometimes I am good at math
+      var numPos = createVector(((i + c) % c) * unitX + random(0, unitX - 120), ((i + r) % r) * unitY + random(0, unitY - 120)); //to draw them in a grid with some randomness
+      var safeDist = dist(numPos.x, numPos.y, width / 2, height / 2);
+      if (safeDist >= pitSize / 2 + 80) {
+        rocks.push(new Rock(numPos.x, numPos.y, words[i]));
+      }
     }
     started = false;
     moveStarted = true;
   }
 
+  //console.log(rocks);
   if (moveStarted) {
     for (var i = 0; i < words.length; i++) {
       rocks[i].update();
     }
   }
+
+  ellipse(width / 2, height / 2, pitSize, pitSize);
 }
 
 
@@ -59,8 +75,8 @@ function Rock(posX, posY, word) {
 
   this.update = function() {
     if (this.wordRock.moved) {
-      this.pos.x = mouseX - this.size.x/2;
-      this.pos.y = mouseY - this.size.y/2;
+      this.pos.x = mouseX - this.size.x / 2;
+      this.pos.y = mouseY - this.size.y / 2;
       this.wordRock.position(this.pos.x, this.pos.y);
     }
   };
