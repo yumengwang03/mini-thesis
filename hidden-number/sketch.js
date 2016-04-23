@@ -9,6 +9,8 @@ var pitSize;
 var rockSize;
 var pitImg;
 
+var rockMsg = [];
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   started = false;
@@ -21,7 +23,7 @@ function setup() {
   });
 
   pitSize = height / 2 + 60;
-  rockSize = 150;
+  rockSize = 120;
 
   var sevenSize = pitSize / 8;
   var seven0 = createVector(width / 2 - 1.2 * sevenSize, height / 2 - sevenSize);
@@ -32,7 +34,7 @@ function setup() {
   var seven5 = createVector(width / 2 + 0.2 * sevenSize, height / 2 + 2 * sevenSize);
   hiddenPos = [seven0, seven1, seven2, seven3, seven4, seven5];
 
-  pitImg = loadImage("img/purple3.png");
+  pitImg = loadImage("img/purple4.png");
 }
 
 function changeMoved1() {
@@ -52,9 +54,9 @@ function draw() {
 
   //ellipse(width / 2, height / 2, pitSize, pitSize);
   if (started) {
-
+    //background(0);
     imageMode(CENTER);
-    image(pitImg, width / 2 + 20, height / 2, pitSize * 1.3, pitSize * 1.2);
+    image(pitImg, width / 2 - 10, height / 2, pitSize * 2.5, pitSize * 1.8);
 
     var r = 4;
     var c = 5;
@@ -109,11 +111,11 @@ function Rock(posX, posY, word) {
   this.wordRock.style('background-size', '100%');
   this.wordRock.style('outline', 'none');
   this.wordRock.style('font-family', 'monospace');
-  this.wordRock.style('font-size', '1.5em');
+  this.wordRock.style('font-size', '1.2em');
   //this.wordRock.style('font-weight', 'bold');
   this.wordRock.style('border', 'white');
   this.wordRock.style('color', '#11853F');
-  this.wordRock.style('border-radius', '40px');
+  this.wordRock.style('border-radius', '20px');
 
   this.wordRock.mousePressed(changeMoved1);
   this.wordRock.mouseReleased(changeMoved2);
@@ -133,7 +135,8 @@ function Rock(posX, posY, word) {
     this.newSafeDist = dist(this.pos.x, this.pos.y, width / 2, height / 2);
     if (this.newSafeDist <= pitSize / 2 && !this.wordRock.moved && this.runTime < 1) {
       if (updatedRockSize == 1) {
-        this.wordRock.size(rockSize / 3, rockSize / 3);
+        rockMsg.push(this.wordRock.html());
+        this.wordRock.size(rockSize / 2.5, rockSize / 2.5);
         this.wordRock.html('');
       } else if (updatedRockSize == 0) {
         this.wordRock.size(rockSize, rockSize);
