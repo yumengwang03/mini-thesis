@@ -7,6 +7,7 @@ var hiddenPos = [];
 var moveStarted;
 var pitSize;
 var rockSize;
+var pitImg;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -22,7 +23,7 @@ function setup() {
   pitSize = height / 2 + 60;
   rockSize = 150;
 
-  var sevenSize = pitSize / 6;
+  var sevenSize = pitSize / 8;
   var seven0 = createVector(width / 2 - 1.2 * sevenSize, height / 2 - sevenSize);
   var seven1 = createVector(width / 2 - 0.2 * sevenSize, height / 2 - sevenSize);
   var seven2 = createVector(width / 2 + 0.8 * sevenSize, height / 2 - sevenSize);
@@ -30,6 +31,8 @@ function setup() {
   var seven4 = createVector(width / 2 + 0.4 * sevenSize, height / 2 + sevenSize);
   var seven5 = createVector(width / 2 + 0.2 * sevenSize, height / 2 + 2 * sevenSize);
   hiddenPos = [seven0, seven1, seven2, seven3, seven4, seven5];
+  
+  pitImg = loadImage("img/pit.png");
 }
 
 function changeMoved1() {
@@ -45,8 +48,14 @@ function changeMoved2() {
 
 
 function draw() {
-  ellipse(width / 2, height / 2, pitSize, pitSize);
+  
+  
+  //ellipse(width / 2, height / 2, pitSize, pitSize);
   if (started) {
+    
+    imageMode(CENTER);
+    //image(pitImg, width/2, height/2, pitSize, pitSize);
+    
     var r = 4;
     var c = 5;
     for (var i = 0; i < words.length; i++) {
@@ -59,7 +68,7 @@ function draw() {
 
       // do not draw in the circle
       var safeDist = dist(numPos.x, numPos.y, width / 2, height / 2);
-      if (safeDist >= pitSize / 2 + 80) {
+      if (safeDist >= pitSize / 2 + 100) {
         posList.push(numPos);
       }
     }
@@ -92,17 +101,19 @@ function Rock(posX, posY, word) {
   this.wordRock.size(rockSize, rockSize);
   this.wordRock.moved = false;
   this.wordRock.position(this.pos.x, this.pos.y);
-  this.rockImg = ['url(img/rock.png)'];
+  this.rockImg = ['url(img/rock1.png)', 'url(img/rock2.png)', 'url(img/rock3.png)', 'url(img/rock4.png)', 'url(img/rock5.png)', 'url(img/rock6.png)'];
   this.runTime = 0;
 
-  this.wordRock.style('background', this.rockImg[0]);
+  this.wordRock.style('background', this.rockImg[floor(random(0,6))]);
+  // this.wordRock.style('background', 'url(img/rockTest.png)');
   this.wordRock.style('background-size', '100%');
   this.wordRock.style('outline', 'none');
   this.wordRock.style('font-family', 'monospace');
-  this.wordRock.style('font-size', '1em');
+  this.wordRock.style('font-size', '1.5em');
+  //this.wordRock.style('font-weight', 'bold');
   this.wordRock.style('border', 'white');
-  this.wordRock.style('color', 'pink');
-  this.wordRock.style('border-radius', '30px');
+  this.wordRock.style('color', '#11853F');
+  this.wordRock.style('border-radius', '40px');
 
   this.wordRock.mousePressed(changeMoved1);
   this.wordRock.mouseReleased(changeMoved2);
@@ -123,6 +134,7 @@ function Rock(posX, posY, word) {
     if (this.newSafeDist <= pitSize / 2 && !this.wordRock.moved && this.runTime < 1) {
       if (updatedRockSize == 1) {
         this.wordRock.size(rockSize / 3, rockSize / 3);
+        this.wordRock.html('');
       } else if (updatedRockSize == 0) {
         this.wordRock.size(rockSize, rockSize);
       }
@@ -130,7 +142,6 @@ function Rock(posX, posY, word) {
       this.pos.y = hidPosY;
       this.wordRock.position(this.pos.x - 25, this.pos.y - 25);
       hiddenPos.splice(0, 1);
-      this.wordRock.html('');
       this.runTime++;
     }
   }
