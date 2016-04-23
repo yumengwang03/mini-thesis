@@ -55,7 +55,7 @@ function numberDraw() {
 
   if (runOnce < 1) {
     pitImg = createImg('img/purple.png');
-    pitImg.position(width/2 - pitSize*2.5/2, 0);
+    pitImg.position(width / 2 - pitSize * 2.5 / 2, 0);
     pitImg.size(pitSize * 2.5, height);
     var r = 4;
     var c = 5;
@@ -106,7 +106,6 @@ function Rock(posX, posY, word) {
   this.runTime = 0;
 
   this.wordRock.style('background', this.rockImg[floor(random(0, 6))]);
-  // this.wordRock.style('background', 'url(img/rockTest.png)');
   this.wordRock.style('background-size', '100%');
   this.wordRock.style('outline', 'none');
   this.wordRock.style('font-family', 'monospace');
