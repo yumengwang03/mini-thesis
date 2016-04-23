@@ -10,17 +10,19 @@ var shipSize;
 var spaceship;
 var startTravel;
 var updatePos;
+var collect;
+var emotions = [];
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   starRunOnce = 0;
+  collect = 0;
   starStarted = false;
-  starSize = 180;
+  starSize = height / 5.5;
   starWords = ["pleasing", "complementary", "transparent", "keyboard", "banana", "texture", "tangible", "blue", "knitting", "pencil", "innovative", "carbon"];
-  starImg = ['url(img/planet1.png)', 'url(img/planet2.png)', 'url(img/planet3.png)', 'url(img/planet4.png)', 'url(img/planet5.png)', 'url(img/planet6.png)', 'url(img/planet7.png)', 'url(img/planet8.png)', 'url(img/planet9.png)', 'url(img/planet10.png)', 'url(img/planet11.png)', 'url(img/planet12.png)'];
+  starImg = ['url(img/planet1.png) no-repeat', 'url(img/planet2.png) no-repeat', 'url(img/planet3.png) no-repeat', 'url(img/planet4.png) no-repeat', 'url(img/planet5.png) no-repeat', 'url(img/planet6.png) no-repeat', 'url(img/planet7.png) no-repeat', 'url(img/planet8.png) no-repeat', 'url(img/planet9.png) no-repeat', 'url(img/planet10.png) no-repeat', 'url(img/planet11.png) no-repeat', 'url(img/planet12.png) no-repeat'];
   startTravel = false;
-
 }
 
 function draw() {
@@ -42,10 +44,19 @@ function draw() {
     // spaceship
     shipPos = createVector(20, random(0, height));
     updatePos = createVector(0, 0);
-    shipSize = 50;
-    spaceship = createButton('test');
+    shipSize = height / 6.5;
+    spaceship = createButton('');
     spaceship.position(shipPos.x, shipPos.y);
     spaceship.size(shipSize, shipSize);
+
+    spaceship.style('background', 'url(img/spaceship.png)');
+    spaceship.style('background-size', '100%');
+    spaceship.style('outline', 'none');
+    spaceship.style('border', 'white');
+    spaceship.style('font-family', 'monospace');
+    spaceship.style('font-size', '1.4em');
+    spaceship.style('font-weight', 'bold');
+    spaceship.style('color', 'navy');
 
     starRunOnce++;
     starStarted = true;
@@ -86,21 +97,21 @@ function Star(adj, xPos, yPos, mode, img) {
   this.adjStar.style('font-size', '1.4em');
   this.adjStar.style('border', 'white');
   this.adjStar.style('color', 'navy');
-  this.adjStar.style('border-radius', '80px');
+  this.adjStar.style('border-radius', '60px');
 
   this.display = function() {
     switch (this.mode) {
       case 0:
-        this.adjStar.size(starSize, starSize - 20);
+        this.adjStar.size(starSize, starSize - 10);
         break;
       case 1:
-        this.adjStar.size(0.8 * starSize, 0.8 * (starSize - 20));
+        this.adjStar.size(0.8 * starSize, 0.8 * (starSize - 16));
         break;
       case 2:
-        this.adjStar.size(0.7 * starSize, 0.7 * (starSize - 20));
+        this.adjStar.size(0.7 * starSize, 0.7 * (starSize - 16));
         break;
       case 3:
-        this.adjStar.size(0.6 * starSize, 0.6 * (starSize - 20));
+        this.adjStar.size(0.6 * starSize, 0.6 * (starSize - 16));
         break;
     }
   }
@@ -139,8 +150,15 @@ function Star(adj, xPos, yPos, mode, img) {
 }
 
 function travel() {
-  //this.style('background', 'grey');
+  collect++;
   updatePos.x = this.x + starSize / 4;
   updatePos.y = this.y + starSize / 4;
+  if (collect < 6) {
+    emotions.push(this.html());
+    spaceship.html(spaceship.html() + " " + this.html());
+    this.html('');
+    this.style('opacity', '0.4');
+  }
   startTravel = true;
+  console.log(emotions);
 }
