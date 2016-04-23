@@ -34,12 +34,12 @@ function setup() {
   var seven5 = createVector(width / 2 + 0.2 * sevenSize, height / 2 + 2 * sevenSize);
   hiddenPos = [seven0, seven1, seven2, seven3, seven4, seven5];
 
-  pitImg = loadImage("img/purple4.png");
+  pitImg = loadImage("img/purple.png");
 }
 
 function changeMoved1() {
   var stopDist = dist(mouseX, mouseY, width / 2, height / 2);
-  if (stopDist > pitSize / 2) {
+  if (stopDist > pitSize / 2 - 40) {
     this.moved = true;
   }
 };
@@ -50,13 +50,11 @@ function changeMoved2() {
 
 
 function draw() {
-
-
-  //ellipse(width / 2, height / 2, pitSize, pitSize);
   if (started) {
     //background(0);
     imageMode(CENTER);
     image(pitImg, width / 2 - 10, height / 2, pitSize * 2.5, pitSize * 1.8);
+    //ellipse(width / 2, height / 2, pitSize, pitSize);
 
     var r = 4;
     var c = 5;
@@ -70,7 +68,7 @@ function draw() {
 
       // do not draw in the circle
       var safeDist = dist(numPos.x, numPos.y, width / 2, height / 2);
-      if (safeDist >= pitSize / 2 + 100) {
+      if (safeDist >= pitSize / 2 + 80) {
         posList.push(numPos);
       }
     }
