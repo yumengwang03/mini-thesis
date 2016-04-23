@@ -31,8 +31,8 @@ function setup() {
   var seven4 = createVector(width / 2 + 0.4 * sevenSize, height / 2 + sevenSize);
   var seven5 = createVector(width / 2 + 0.2 * sevenSize, height / 2 + 2 * sevenSize);
   hiddenPos = [seven0, seven1, seven2, seven3, seven4, seven5];
-  
-  pitImg = loadImage("img/pit.png");
+
+  pitImg = loadImage("img/purple3.png");
 }
 
 function changeMoved1() {
@@ -48,14 +48,14 @@ function changeMoved2() {
 
 
 function draw() {
-  
-  
+
+
   //ellipse(width / 2, height / 2, pitSize, pitSize);
   if (started) {
-    
+
     imageMode(CENTER);
-    //image(pitImg, width/2, height/2, pitSize, pitSize);
-    
+    image(pitImg, width / 2 + 20, height / 2, pitSize * 1.3, pitSize * 1.2);
+
     var r = 4;
     var c = 5;
     for (var i = 0; i < words.length; i++) {
@@ -104,7 +104,7 @@ function Rock(posX, posY, word) {
   this.rockImg = ['url(img/rock1.png)', 'url(img/rock2.png)', 'url(img/rock3.png)', 'url(img/rock4.png)', 'url(img/rock5.png)', 'url(img/rock6.png)'];
   this.runTime = 0;
 
-  this.wordRock.style('background', this.rockImg[floor(random(0,6))]);
+  this.wordRock.style('background', this.rockImg[floor(random(0, 6))]);
   // this.wordRock.style('background', 'url(img/rockTest.png)');
   this.wordRock.style('background-size', '100%');
   this.wordRock.style('outline', 'none');
