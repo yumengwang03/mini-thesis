@@ -2,6 +2,7 @@ var lightRunOnce;
 var lightStarted;
 var lightQList = []; //textareas
 var lightBList = []; //buttons
+var lightAreas = [];
 var lights = [];
 var lightOn;
 var lightIndex;
@@ -9,6 +10,9 @@ var lightTime;
 var lightPos;
 var textOut = [];
 var limit;
+var answers = [];
+var areaSize;
+var bright;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -18,29 +22,45 @@ function setup() {
   lightIndex = 0;
   lightTime = 0;
   lightPos = createVector(0, 0);
-  limit = 14;
-  
+  limit = 12;
+  areaSize = height / 3;
+  bright = 0;
 }
 
 function draw() {
   if (lightRunOnce < 1) {
+    background(0);
     for (var i = 0; i < 3; i++) {
+      // var area = createImg('img/test.png');
+      // area.position(width / 3 * i + width / 6 - areaSize / 2, height / 3 - areaSize / 2);
+      // area.size(areaSize, areaSize);
+      // area.style('opacity', '0.2');
+      // lightAreas.push(area);
       var lightB = createButton('test1');
       lightB.position(width / 3 * i + width / 6, height / 3);
       lightB.id = i;
+      lightB.clicked = false;
       lightB.mousePressed(lightClicked);
+      //lightB.class('lightButton');
       lightBList.push(lightB);
-      var lightIn = createElement('textarea', 'hey' + i);
+      var lightIn = createElement('textarea', '');
       lightIn.position(width / 3 * i + width / 6, height / 3 + 20);
       lightQList.push(lightIn);
     }
     for (var i = 0; i < 2; i++) {
+      // var area = createImg('img/test.png');
+      // area.position(width / 3 * i + 2 * width / 6 - areaSize / 2, 2 * height / 3 - areaSize / 2);
+      // area.size(areaSize, areaSize);
+      // area.style('opacity', '0.2');
+      // lightAreas.push(area);
       var lightB = createButton('test2');
       lightB.position(width / 3 * i + 2 * width / 6, 2 * height / 3);
       lightB.id = i + 3;
+      lightB.clicked = false;
       lightB.mousePressed(lightClicked);
+      //lightB.class('lightButton');
       lightBList.push(lightB);
-      var lightIn = createElement('textarea', 'hey' + (i + 3));
+      var lightIn = createElement('textarea', '');
       lightIn.position(width / 3 * i + 2 * width / 6, 2 * height / 3 + 20);
       lightQList.push(lightIn);
     }
@@ -50,6 +70,7 @@ function draw() {
   }
 
   if (lightStarted && lightOn) {
+    background(bright);
     if (millis() > lightTime + 120) {
       addLight();
       lightTime = millis();
@@ -63,6 +84,16 @@ function draw() {
         lights.splice(0, 1);
       }
     }
+    
+    var clickArray = [lightBList[0].clicked, lightBList[1].clicked, lightBList[2].clicked, lightBList[3].clicked, lightBList[4].clicked];
+    var allClicked = clickArray.every(function(item){
+      return item;
+    });
+    console.log(allClicked);
+    if (allClicked && bright < 255) {
+      bright += 5;
+    }
+
   }
 }
 
@@ -79,15 +110,20 @@ function addLight() {
 }
 
 function lightClicked() {
-  lightPos.set(this.x, this.y);
-  lightOn = true;
   var getText = lightQList[this.id].value();
-  console.log(getText);
-  textOut = getText.split(/\W+/);
-  for (var i = 0; i < textOut.length; i++) {
-    if (textOut[i] == "") {
-      textOut.splice(i, 1);
+
+  if (getText != '') {
+    this.class('lightButton');
+    this.clicked = true;
+    textOut = getText.split(/\W+/);
+    answers = answers.concat(textOut);
+    for (var i = 0; i < textOut.length; i++) {
+      if (textOut[i] == "") {
+        textOut.splice(i, 1);
+      }
     }
+    lightPos.set(this.x, this.y);
+    lightOn = true;
   }
 }
 
@@ -103,7 +139,7 @@ function Light(posX, posY, word) {
 
   this.update = function() {
     this.size = map(this.s, 0, 90, 10, 80);
-    this.fontS = map(this.s, 0, 90, 0.5, 6);
+    this.fontS = map(this.s, 0, 90, 0.5, 4);
     this.pos.y += this.vel;
     this.s++;
   };
