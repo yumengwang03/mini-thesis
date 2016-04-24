@@ -19,6 +19,7 @@ function setup() {
   lightTime = 0;
   lightPos = createVector(0, 0);
   limit = 14;
+  
 }
 
 function draw() {
