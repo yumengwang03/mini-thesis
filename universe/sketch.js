@@ -157,8 +157,8 @@ function travel() {
     emotions.push(this.html());
     spaceship.html(spaceship.html() + " " + this.html());
     this.html('');
-    this.style('opacity', '0.4');
+    this.style('opacity', '0.2');
   }
   startTravel = true;
-  console.log(emotions);
+  //console.log(emotions);
 }
