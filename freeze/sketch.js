@@ -3,7 +3,7 @@ var lightStarted;
 var lightQList = []; //textareas
 var lightBList = []; //buttons
 var lights = [];
-//var lightOn;
+var lightOn;
 var lightIndex;
 var lightOrder;
 var lightTime;
