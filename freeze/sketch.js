@@ -3,12 +3,12 @@ var lightStarted;
 var lightQList = []; //textareas
 var lightBList = []; //buttons
 var lights = [];
-//var lightOn;
+var lightOn;
 var lightIndex;
-var lightOrder;
 var lightTime;
 var lightPos;
 var textOut = [];
+var limit;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -16,9 +16,9 @@ function setup() {
   lightStarted = false;
   lightOn = false;
   lightIndex = 0;
-  lightOrder = 0;
   lightTime = 0;
   lightPos = createVector(0, 0);
+  limit = 14;
 }
 
 function draw() {
@@ -47,38 +47,27 @@ function draw() {
     lightRunOnce++;
     lightStarted = true;
   }
-  if (lightStarted) {
-    if (lightOn) {
-      if (millis() > lightTime + 120) {
-        addLight();
-        lightTime = millis();
-      }
 
-      for (var i = 0; i < lights.length; i++) {
-        lights[i].update();
-        lights[i].display();
-        //console.log(lights.length);
-
-        if (lights.length >= textOut.length) {
-          lights[0].photon.remove();
-          lights.splice(0, 1);
-
-        }
+  if (lightStarted && lightOn) {
+    if (millis() > lightTime + 120) {
+      addLight();
+      lightTime = millis();
+    }
+    for (var i = 0; i < lights.length; i++) {
+      lights[i].update();
+      lights[i].display();
+      //console.log(lights.length);
+      if (lights.length >= limit) {
+        lights[0].photon.remove();
+        lights.splice(0, 1);
       }
     }
-
   }
-
 }
 
 function addLight() {
   //textOut = ["pleasing", "complementary", "transparent", "keyboard", "banana", "texture", "tangible", "blue", "knitting", "pencil", "innovative", "carbon"];
-  console.log(textOut);
-  if (textOut.length < 10) {
-    textOut.push(textOut[lightOrder]);
-    lightOrder++;
-  }
-  if (textOut.length >= 10 && lights.length < textOut.length && lightPos.x != 0 && lightPos.y != 0) {
+  if (lights.length < limit && lightPos.x != 0 && lightPos.y != 0) {
     var newLight = new Light(lightPos.x, lightPos.y, textOut[lightIndex]);
     lights.push(newLight);
     lightIndex++;
@@ -92,9 +81,10 @@ function lightClicked() {
   lightPos.set(this.x, this.y);
   lightOn = true;
   var getText = lightQList[this.id].value();
+  console.log(getText);
   textOut = getText.split(/\W+/);
   for (var i = 0; i < textOut.length; i++) {
-    if(textOut[i] == "") {
+    if (textOut[i] == "") {
       textOut.splice(i, 1);
     }
   }
@@ -111,8 +101,8 @@ function Light(posX, posY, word) {
 
 
   this.update = function() {
-    this.size = map(this.s, 0, 90, 10, 40);
-    this.fontS = map(this.s, 0, 90, 0.5, 2);
+    this.size = map(this.s, 0, 90, 10, 80);
+    this.fontS = map(this.s, 0, 90, 0.5, 6);
     this.pos.y += this.vel;
     this.s++;
   };
