@@ -11,6 +11,8 @@ var lightTime;
 var lightPos;
 var textOut = [];
 var limit;
+var questionsP = [];
+var questions = [];
 var answers = [];
 var areaSize;
 var bright;
@@ -26,6 +28,7 @@ function setup() {
   limit = 12;
   areaSize = height / 3;
   bright = 0;
+  questions = ["how are you?", "what's your favorite color?", "who's your best friend?", "Cats or dogs?", "Do you like bananas?"];
 }
 
 function draw() {
@@ -37,7 +40,7 @@ function draw() {
     var endRoad = createElement('h1', 'Mysterious force is at the end of the road');
     endRoad.position(width / 2 - 300, 7 * height / 8);
     for (var i = 0; i < 3; i++) {
-      var lightB2 = createButton('off');
+      var lightB2 = createButton('');
       lightB2.position(width / 3 * i + width / 6.2, height / 3 - areaSize / 2.8);
       lightBList2.push(lightB2);
 
@@ -56,9 +59,13 @@ function draw() {
       var lightIn = createElement('textarea', '');
       lightIn.position(width / 3 * i + width / 5.5, height / 1.8);
       lightQList.push(lightIn);
+
+      var question = createP(questions[i]);
+      question.position(width / 3 * i + width / 5.5, height / 2);
+      questionsP.push(question);
     }
     for (var i = 0; i < 2; i++) {
-      var lightB2 = createButton('off');
+      var lightB2 = createButton('');
       lightB2.position(width / 3 * i + 2 * width / 6.1, 2 * height / 3 - areaSize / 6.8);
       lightBList2.push(lightB2);
 
@@ -77,12 +84,19 @@ function draw() {
       var lightIn = createElement('textarea', '');
       lightIn.position(width / 3 * i + 2 * width / 5.5, height / 1.8);
       lightQList.push(lightIn);
+
+      var question = createP(questions[i + 3]);
+      question.position(width / 3 * i + 2 * width / 5.5, height / 2);
+      questionsP.push(question);
     }
+    console.log(questionsP);
 
     lightRunOnce++;
     lightStarted = true;
 
     for (var m = 0; m < lightBList.length; m++) {
+
+
       lightBList[m].size(areaSize / 8, areaSize / 8);
       lightBList[m].style('background', 'transparent');
       lightBList[m].style('background-size', '100%');
@@ -107,6 +121,10 @@ function draw() {
       lightQList[m].style('font-size', '1em');
       lightQList[m].style('color', '#1BA200');
       lightQList[m].style('outline', 'none');
+
+      questionsP[m].size(120, 30);
+      questionsP[m].style('color', 'grey');
+      questionsP[m].style('font-family', 'monospace');
     }
   }
 

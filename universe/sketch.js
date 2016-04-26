@@ -114,7 +114,7 @@ function Star(adj, xPos, yPos, mode, img) {
         this.adjStar.size(0.6 * starSize, 0.6 * (starSize - 16));
         break;
     }
-  }
+  };
 
   this.update = function() {
     switch (this.mode) {

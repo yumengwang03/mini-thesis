@@ -15,18 +15,46 @@ var over;
 // start page
 var username;
 var startB;
-//welcome page
+// welcome page
 var message;
 var nextB;
-// 1st traveller
+// find other two travellers
+
+// 1st traveller - choice
 var hairB = [];
 var hairMsg;
+// 1st traveller - description + 2nd traveller choice
 var tMsg1;
 var hairContinueB;
-// 2nd traveller
+// 2nd traveller - description
 var eyeMsg;
 var eyeSlider;
 var eyeContinueB;
+// boarding spaceship
+
+// Galaxy of Emotions
+
+// landing - lung/breathing
+
+// fresh air message
+
+// scenery poem message
+
+// scenery poem
+
+// ?
+
+// ?
+
+// streetlamp
+
+// mysterious force
+
+// box of stories
+
+// the end
+
+
 // empties
 var emptiesImg;
 var emptiesMsg;
@@ -118,7 +146,7 @@ function greyHair2() {
   for (var i = 0; i < hairB.length; i++) {
     hairB[i].remove();
   }
-  var nextTraveller = "run into someone with skin in glowing orange. She is staring at you."
+  var nextTraveller = "run into someone with skin in glowing orange. She is staring at you.";
   switch (hairChoice) {
     case 1:
       tMsg1 = createElement('h1', "Kim has grey hair, but he's becoming younger and soon he will have black hair. His curiosity has drvien him to the entrance of this Utopian world. You and Kim " + nextTraveller);
