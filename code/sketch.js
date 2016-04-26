@@ -98,27 +98,33 @@ var endB;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
   theEnd = false;
   //socket = io.connect('http://localhost:8080');
 
   startPage();
 
+  galaxySetup();
   numberSetup();
 
 }
 
 function draw() {
-  //console.log(forceStarted);
   if (forceStarted) {
     numberDraw();
+  }
+  if (galaxyStarted) {
+    galaxyDraw();
   }
 }
 
 function startPage() {
+  
   noCanvas();
   mainTitle = select('#main-title');
   username = select('#username');
   startB = select('#startButton');
+  startB.class('continueButton');
   startB.mousePressed(function() {
     name = username.value();
     if (name !== "") {
@@ -133,41 +139,47 @@ function welcomePage() {
   username.remove();
   startB.remove();
   welcomeMessage = createElement('h1', 'welcome ' + name);
+  welcomeMessage.class('message');
   welcomeNextB = createButton('Next');
+  welcomeNextB.class('continueButton');
   welcomeNextB.mousePressed(function() {
-    greyHair();
+    traveller1();
   });
 
   theEnd = true;
 }
 
 // to determine the first character to travel with
-function greyHair() {
+function traveller1() {
   welcomeMessage.remove();
   welcomeNextB.remove();
   hairMsg = createElement('h1', 'When you see someone with grey hair, how do you know if his/her hair is turning black or turning white, or staying grey forever?');
+  hairMsg.class('message');
   hairB[0] = createButton('Black');
   hairB[1] = createButton('White');
   hairB[2] = createButton('Staying grey');
+  for (i in hairB) {
+    hairB[i].class('continueButton');
+  }
 
   hairB[0].mousePressed(function() {
     console.log('black');
     hairChoice = 1;
-    greyHair2();
+    traveller1_2();
   });
   hairB[1].mousePressed(function() {
     console.log('white');
     hairChoice = 2;
-    greyHair2();
+    traveller1_2();
   });
   hairB[2].mousePressed(function() {
     console.log('grey');
     hairChoice = 3;
-    greyHair2();
+    traveller1_2();
   });
 }
 
-function greyHair2() {
+function traveller1_2() {
   hairMsg.remove();
   for (var i = 0; i < hairB.length; i++) {
     hairB[i].remove();
@@ -184,17 +196,48 @@ function greyHair2() {
       hairMsg2 = createElement('h1', "Sean is 43, but he has been at this age for more than 2000 years. He is bored with his life and an adventure is badly needed. You and Sean " + nextTraveller);
       break;
   }
+  hairMsg2.class('message');
   hairNextB = createButton('Next');
-  hairNextB.mousePressed(frozenTraveller);
+  hairNextB.class('continueButton');
+  hairNextB.mousePressed(traveller2);
 }
 
-function frozenTraveller() {
+function traveller2() {
   hairMsg2.remove();
   hairNextB.remove();
   eyeMsg = createElement('h1', "She can freeze time and people and stare at them as long as she wants.");
+  eyeMsg.class('message');
   eyeSlider = createSlider(0, 100, 20);
   eyeNextB = createButton('Next');
-  eyeNextB.mousePressed(empties);
+  eyeNextB.class('continueButton');
+  eyeNextB.mousePressed(boarding);
+}
+
+function boarding() {
+  eyeMsg.remove();
+  eyeSlider.remove();
+  eyeNextB.remove();
+  spaceshipMsg = createElement('h1', "Welcome to board");
+  spaceshipMsg.class('message');
+  spaceshipImg = createImg('img/bigSpaceship.png');
+  spaceshipQ = createElement('h2', "Boarding-pass question: what's your favorite fruit?");
+  spaceshipA = createElement('textarea', '');
+  spaceshipNextB = createButton("Take off now");
+  spaceshipNextB.class('continueButton');
+  spaceshipNextB.mousePressed(galaxyOfEmotions);
+}
+
+function galaxyOfEmotions() {
+  spaceshipMsg.remove();
+  spaceshipNextB.remove();
+  spaceshipQ.remove();
+  spaceshipA.remove();
+  emptiesNextB.remove();
+  galaxyMsg = createElement('h1', "Welcome to the Universe of Adjectives");
+  galaxyMsg.class('message');
+  galaxyNextB = createButton('Next');
+  galaxyNextB.class('continueButton');
+  galaxyNextB.mousePressed(force);
 }
 
 function empties() {
@@ -202,25 +245,22 @@ function empties() {
   eyeNextB.remove();
   eyeSlider.remove();
   emptiesMsg = createElement('h1', "This is the Empties. I know it's confusing. It's just hard to describe. You can try describing it.");
+  emptiesMsg.class('message');
   emptiesD = createElement('textarea', "");
   emptiesNextB = createButton('Next');
-  emptiesNextB.mousePressed(adjUniverse);
+  emptiesNextB.class('continueButton');
+  emptiesNextB.mousePressed();
 }
 
-function adjUniverse() {
-  emptiesMsg.remove();
-  emptiesD.remove();
-  emptiesNextB.remove();
-  adjMsg = createElement('h1', "Welcome to the Universe of Adjectives");
-  adjNextB = createButton('Next');
-  adjNextB.mousePressed(force);
-}
+
 
 function force() {
   adjMsg.remove();
   adjNextB.remove();
   forceMsg = createElement('h1', "THE force");
+  forceMsg.class('message');
   forceNextB = createButton('Next');
+  forceNextB.class('continueButton');
   forceNextB.mousePressed(finalEnd);
 
   forceStarted = true;
@@ -230,7 +270,9 @@ function finalEnd() {
   forceMsg.remove();
   forceNextB.remove();
   endMsg = createElement('h1', "This is where you say goodbye to your companions in this journey.");
+  endMsg.class('message');
   endB = createButton('Write your story.');
+  endB.class('continueButton');
 
   //endB.mousePressed(sendToServer);
 
