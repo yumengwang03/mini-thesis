@@ -7,74 +7,98 @@ var hairChoice;
 var socket;
 
 
-var over;
+var theEnd;
 
 
 // gui
 
 // start page
+var mainTitle;
 var username;
 var startB;
 // welcome page
-var message;
-var nextB;
-// find other two travellers
-
+var welcomeMessage;
+var welcomeNextB;
+// find other two travellers message
+var findMessage;
+var findNextB;
 // 1st traveller - choice
-var hairB = [];
 var hairMsg;
+var hairB = []; // hair buttons
 // 1st traveller - description + 2nd traveller choice
-var tMsg1;
-var hairContinueB;
+var hairMsg2;
+var hairNextB;
 // 2nd traveller - description
 var eyeMsg;
 var eyeSlider;
-var eyeContinueB;
+var eyeNextB;
 // boarding spaceship
-
+var spaceshipStarted = false;
+var spaceshipMsg;
+var spaceshipImg;
+var spaceshipQ;
+var spaceshipA;
+var spaceshipNextB;
 // Galaxy of Emotions
-
+var galaxyStarted = false;
+var galaxyMsg;
+var galaxyNextB;
 // landing - lung/breathing
-
+var breathStarted = false;
+var breathMsg;
+var breathNextB;
 // fresh air message
-
+var breathMsg2;
+var breathNextB2;
 // scenery poem message
-
+var sceneryMsg;
+var sceneryNextB;
 // scenery poem
-
+var sceneryStarted = false;
+var sceneryMsg2;
+var sceneryNextB2;
 // ?
-
+var xNextB;
 // ?
-
+var xNextB2;
 // streetlamp
-
+var lampStarted = false;
+var lampMsg;
+var lampNextB;
 // mysterious force
-
+var forceStarted = false;
+var forceMsg;
+var forceNextB;
 // box of stories
-
+var boxStarted = false;
+var boxMsg;
+var boxImg;
+var password; // input
+var boxNextB;
 // the end
-
-
-// empties
-var emptiesImg;
-var emptiesMsg;
-var emptiesD;
-var emptiesContinueB;
-// adjUniverse
-var adjMsg;
-var adjContinueB;
-// zone
-var zoneMsg;
-var zoneContinueB;
-var zoneStarted = false;
-// the End
-var endMsg;
+var boxStarted2 = false;
+var boxMsg2;
+var boxImg2;
 var endB;
+
+// // empties
+// var emptiesImg;
+// var emptiesMsg;
+// var emptiesD;
+// var emptiesNextB;
+// // adjUniverse
+// var adjMsg;
+// var adjNextB;
+// // force
+
+// // the End
+// var endMsg;
+// var endB;
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  over = false;
+  theEnd = false;
   //socket = io.connect('http://localhost:8080');
 
   startPage();
@@ -84,14 +108,15 @@ function setup() {
 }
 
 function draw() {
-  //console.log(zoneStarted);
-  if (zoneStarted) {
+  //console.log(forceStarted);
+  if (forceStarted) {
     numberDraw();
   }
 }
 
 function startPage() {
   noCanvas();
+  mainTitle = select('#main-title');
   username = select('#username');
   startB = select('#startButton');
   startB.mousePressed(function() {
@@ -104,21 +129,22 @@ function startPage() {
 }
 
 function welcomePage() {
+  mainTitle.remove();
   username.remove();
   startB.remove();
-  message = createElement('h1', 'welcome ' + name);
-  nextB = createButton('CONTINUE');
-  nextB.mousePressed(function() {
+  welcomeMessage = createElement('h1', 'welcome ' + name);
+  welcomeNextB = createButton('Next');
+  welcomeNextB.mousePressed(function() {
     greyHair();
   });
 
-  over = true;
+  theEnd = true;
 }
 
 // to determine the first character to travel with
 function greyHair() {
-  message.remove();
-  nextB.remove();
+  welcomeMessage.remove();
+  welcomeNextB.remove();
   hairMsg = createElement('h1', 'When you see someone with grey hair, how do you know if his/her hair is turning black or turning white, or staying grey forever?');
   hairB[0] = createButton('Black');
   hairB[1] = createButton('White');
@@ -149,74 +175,75 @@ function greyHair2() {
   var nextTraveller = "run into someone with skin in glowing orange. She is staring at you.";
   switch (hairChoice) {
     case 1:
-      tMsg1 = createElement('h1', "Kim has grey hair, but he's becoming younger and soon he will have black hair. His curiosity has drvien him to the entrance of this Utopian world. You and Kim " + nextTraveller);
+      hairMsg2 = createElement('h1', "Kim has grey hair, but he's becoming younger and soon he will have black hair. His curiosity has drvien him to the entrance of this Utopian world. You and Kim " + nextTraveller);
       break;
     case 2:
-      tMsg1 = createElement('h1', "Zanzie's hair is turning white. He realizes his movement has become slow. But he will make through the journey. You and Zanzie " + nextTraveller);
+      hairMsg2 = createElement('h1', "Zanzie's hair is turning white. He realizes his movement has become slow. But he will make through the journey. You and Zanzie " + nextTraveller);
       break;
     case 3:
-      tMsg1 = createElement('h1', "Sean is 43, but he has been at this age for more than 2000 years. He is bored with his life and an adventure is badly needed. You and Sean " + nextTraveller);
+      hairMsg2 = createElement('h1', "Sean is 43, but he has been at this age for more than 2000 years. He is bored with his life and an adventure is badly needed. You and Sean " + nextTraveller);
       break;
   }
-  hairContinueB = createButton('Continue');
-  hairContinueB.mousePressed(frozenTraveller);
+  hairNextB = createButton('Next');
+  hairNextB.mousePressed(frozenTraveller);
 }
 
 function frozenTraveller() {
-  tMsg1.remove();
-  hairContinueB.remove();
+  hairMsg2.remove();
+  hairNextB.remove();
   eyeMsg = createElement('h1', "She can freeze time and people and stare at them as long as she wants.");
   eyeSlider = createSlider(0, 100, 20);
-  eyeContinueB = createButton('Continue');
-  eyeContinueB.mousePressed(empties);
+  eyeNextB = createButton('Next');
+  eyeNextB.mousePressed(empties);
 }
 
 function empties() {
   eyeMsg.remove();
-  eyeContinueB.remove();
+  eyeNextB.remove();
   eyeSlider.remove();
   emptiesMsg = createElement('h1', "This is the Empties. I know it's confusing. It's just hard to describe. You can try describing it.");
   emptiesD = createElement('textarea', "");
-  emptiesContinueB = createButton('Continue');
-  emptiesContinueB.mousePressed(adjUniverse);
+  emptiesNextB = createButton('Next');
+  emptiesNextB.mousePressed(adjUniverse);
 }
 
 function adjUniverse() {
   emptiesMsg.remove();
   emptiesD.remove();
-  emptiesContinueB.remove();
+  emptiesNextB.remove();
   adjMsg = createElement('h1', "Welcome to the Universe of Adjectives");
-  adjContinueB = createButton('Continue');
-  adjContinueB.mousePressed(zone);
+  adjNextB = createButton('Next');
+  adjNextB.mousePressed(force);
 }
 
-function zone() {
+function force() {
   adjMsg.remove();
-  adjContinueB.remove();
-  zoneMsg = createElement('h1', "THE ZONE");
-  zoneContinueB = createButton('Continue');
-  zoneContinueB.mousePressed(theEnd);
+  adjNextB.remove();
+  forceMsg = createElement('h1', "THE force");
+  forceNextB = createButton('Next');
+  forceNextB.mousePressed(finalEnd);
 
-  zoneStarted = true;
+  forceStarted = true;
 }
 
-function theEnd() {
-  zoneMsg.remove();
-  zoneContinueB.remove();
+function finalEnd() {
+  forceMsg.remove();
+  forceNextB.remove();
   endMsg = createElement('h1', "This is where you say goodbye to your companions in this journey.");
   endB = createButton('Write your story.');
+
   //endB.mousePressed(sendToServer);
 
 }
 
 function sendToServer() {
-  if (over) {
+  if (theEnd) {
     socket.emit('toServer', {
       name: name,
       hair: hairChoice
     });
     console.log("sent to server");
-    over = false;
+    theEnd = false;
   }
 
 }
