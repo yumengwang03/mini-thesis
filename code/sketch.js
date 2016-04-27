@@ -2,13 +2,9 @@
 var name;
 var hairChoice;
 
-
 // socket
 var socket;
-
-
 var theEnd;
-
 
 // gui
 
@@ -65,6 +61,7 @@ var xNextB2;
 var lampStarted = false;
 var lampMsg;
 var lampNextB;
+var road; //background img
 // mysterious force
 var forceStarted = false;
 var forceMsg;
@@ -81,16 +78,6 @@ var boxMsg2;
 var boxImg2;
 var endB;
 
-// // empties
-// var emptiesImg;
-// var emptiesMsg;
-// var emptiesD;
-// var emptiesNextB;
-// // adjUniverse
-// var adjMsg;
-// var adjNextB;
-// // force
-
 // // the End
 // var endMsg;
 // var endB;
@@ -106,6 +93,7 @@ function setup() {
 
   galaxySetup();
   numberSetup();
+  lampSetup();
 
 }
 
@@ -116,10 +104,13 @@ function draw() {
   if (galaxyStarted) {
     galaxyDraw();
   }
+  if (lampStarted) {
+    lampDraw();
+  }
 }
 
 function startPage() {
-  
+
   noCanvas();
   mainTitle = select('#main-title');
   username = select('#username');
@@ -203,6 +194,7 @@ function traveller1_2() {
 }
 
 function traveller2() {
+  console.log("traveller2");
   hairMsg2.remove();
   hairNextB.remove();
   eyeMsg = createElement('h1', "She can freeze time and people and stare at them as long as she wants.");
@@ -214,12 +206,13 @@ function traveller2() {
 }
 
 function boarding() {
+  console.log("boarding");
   eyeMsg.remove();
   eyeSlider.remove();
   eyeNextB.remove();
   spaceshipMsg = createElement('h1', "Welcome to board");
   spaceshipMsg.class('message');
-  spaceshipImg = createImg('img/bigSpaceship.png');
+  spaceshipImg = createImg('img/spaceship.png');
   spaceshipQ = createElement('h2', "Boarding-pass question: what's your favorite fruit?");
   spaceshipA = createElement('textarea', '');
   spaceshipNextB = createButton("Take off now");
@@ -228,47 +221,171 @@ function boarding() {
 }
 
 function galaxyOfEmotions() {
+  console.log("galaxy of emotions");
   spaceshipMsg.remove();
   spaceshipNextB.remove();
+  spaceshipImg.remove();
   spaceshipQ.remove();
   spaceshipA.remove();
-  emptiesNextB.remove();
+  spaceshipNextB.remove();
   galaxyMsg = createElement('h1', "Welcome to the Universe of Adjectives");
   galaxyMsg.class('message');
   galaxyNextB = createButton('Next');
   galaxyNextB.class('continueButton');
-  galaxyNextB.mousePressed(force);
+  galaxyNextB.mousePressed(landing);
+
+  galaxyStarted = true;
 }
 
-function empties() {
-  eyeMsg.remove();
-  eyeNextB.remove();
-  eyeSlider.remove();
-  emptiesMsg = createElement('h1', "This is the Empties. I know it's confusing. It's just hard to describe. You can try describing it.");
-  emptiesMsg.class('message');
-  emptiesD = createElement('textarea', "");
-  emptiesNextB = createButton('Next');
-  emptiesNextB.class('continueButton');
-  emptiesNextB.mousePressed();
+function landing() {
+  console.log("landing");
+  galaxyMsg.remove();
+  galaxyNextB.remove();
+  breathMsg = createElement('h1', "We are landing on Datatopia");
+  breathMsg.class('message');
+  breathNextB = createButton('next');
+  breathNextB.class('continueButton');
+  breathNextB.mousePressed(landing2);
+
+  galaxyStarted = false;
+  spaceship.remove();
+  for (var i = 0; i < stars.length; i++) {
+    stars[i].adjStar.remove();
+  }
 }
 
+function landing2() {
+  console.log("landing2");
+  breathMsg.remove();
+  breathNextB.remove();
+  breathMsg2 = createElement('h1', "breathe");
+  breathMsg2.class('message');
+  breathNextB2 = createButton('next');
+  breathNextB2.class('continueButton');
+  breathNextB2.mousePressed(scenery);
+}
 
+function scenery() {
+  console.log("scenery");
+  breathMsg2.remove();
+  breathNextB2.remove();
+  sceneryMsg = createElement('h1', "moutains");
+  sceneryMsg.class('message');
+  sceneryNextB = createButton('next');
+  sceneryNextB.class('continueButton');
+  sceneryNextB.mousePressed(scenery2);
+}
+
+function scenery2() {
+  console.log("scenery2");
+  sceneryMsg.remove();
+  sceneryNextB.remove();
+  sceneryMsg2 = createElement('h1', "scenery poems");
+  sceneryMsg2.class('message');
+  sceneryNextB2 = createButton('next');
+  sceneryNextB2.class('continueButton');
+  sceneryNextB2.mousePressed(x);
+}
+
+function x() {
+  console.log("x");
+  sceneryMsg2.remove();
+  sceneryNextB2.remove();
+  //sceneryMsg2 = createElement('h1', "We are landing on Datatopia");
+  //sceneryMsg2.class('message');
+  xNextB = createButton('next');
+  xNextB.class('continueButton');
+  xNextB.mousePressed(x2);
+
+}
+
+function x2() {
+  console.log("x2");
+  //Msg2.remove();
+  xNextB.remove();
+  //sceneryMsg2 = createElement('h1', "We are landing on Datatopia");
+  //sceneryMsg2.class('message');
+  xNextB2 = createButton('next');
+  xNextB2.class('continueButton');
+  xNextB2.mousePressed(streetLamp);
+}
+
+function streetLamp() {
+  console.log("street lamp");
+  //sceneryMsg.remove();
+  xNextB2.remove();
+
+  lampStarted = true;
+
+  road = createImg('img/road.png');
+  road.position(0, 0);
+  road.size(width, height);
+  lampMsg = createElement('h1', "street lamp");
+  lampMsg.class('message');
+  lampNextB = createButton('go to mysterious force');
+  lampNextB.position(300, 0);
+  lampNextB.class('continueButton');
+  lampNextB.mousePressed(force);
+}
 
 function force() {
-  adjMsg.remove();
-  adjNextB.remove();
-  forceMsg = createElement('h1', "THE force");
+  console.log("force");
+  lampMsg.remove();
+  lampNextB.remove();
+
+  //lampStarted = false;
+  for (var i = 0; i < lights.length; i++) {
+    //limit = 1;
+    lights[i].photon.remove();
+    lights.splice(0, i);
+    
+    // if (lights.length == 0) {
+    //   console.log(lights.length);
+    //}
+    lightQList[i].remove();
+    lightBList[i].remove();
+    lightBList2[i].remove();
+    lightArea[i].remove();
+    questionsP[i].remove();
+  }
+  road.remove();
+  endRoad.remove();
+  lampStarted = false;
+  // var whiteBackground = createImg('img/planet2.png');
+  // whiteBackground.position(0, 0);
+  // whiteBackground.size(windowWidth, windowHeight);
+
+  forceMsg = createElement('h1', "The force");
   forceMsg.class('message');
-  forceNextB = createButton('Next');
+  forceNextB = createButton('Go to the box');
   forceNextB.class('continueButton');
-  forceNextB.mousePressed(finalEnd);
+  forceNextB.mousePressed(storyBox);
 
   forceStarted = true;
+  console.log(lights);
+}
+
+function storyBox() {
+  for (var i = 0; i < lights.length; i++) {
+    lights[i].photon.remove();
+  }
+  forceMsg.remove();
+  forceNextB.remove();
+  boxMsg = createElement('h1', "The box");
+  boxMsg.class('message');
+  boxImg = createImg('img/planet1.png');
+  boxNextB = createButton('end');
+
+  forceStarted = false;
+  pitImg.remove();
+  for (var i = 0; i < rocks.length; i++) {
+    rocks[i].wordRock.remove();
+  }
 }
 
 function finalEnd() {
-  forceMsg.remove();
-  forceNextB.remove();
+  boxMsg.remove();
+  boxNextB.remove();
   endMsg = createElement('h1', "This is where you say goodbye to your companions in this journey.");
   endMsg.class('message');
   endB = createButton('Write your story.');

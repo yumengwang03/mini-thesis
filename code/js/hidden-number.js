@@ -32,8 +32,6 @@ function numberSetup() {
   var seven4 = createVector(width / 2 + 0.4 * sevenSize, height / 2 + sevenSize);
   var seven5 = createVector(width / 2 + 0.2 * sevenSize, height / 2 + 2 * sevenSize);
   hiddenPos = [seven0, seven1, seven2, seven3, seven4, seven5];
-
-  //pitImg = loadImage("img/purple.png");
 }
 
 function changeMoved1() {
@@ -51,8 +49,7 @@ function changeMoved2() {
 function numberDraw() {
   // imageMode(CENTER);
   // image(pitImg, width / 2 - 10, height / 2, pitSize * 2.5, pitSize * 1.8);
-
-
+  
   if (runOnce < 1) {
     pitImg = createImg('img/purple.png');
     pitImg.position(width / 2 - pitSize * 2.5 / 2, 0);
