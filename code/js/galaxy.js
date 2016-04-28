@@ -12,6 +12,7 @@ var startTravel;
 var updatePos;
 var collect;
 var emotions = [];
+// var landingReady = false;
 
 
 function galaxySetup() {
@@ -150,14 +151,19 @@ function Star(adj, xPos, yPos, mode, img) {
 }
 
 function travel() {
+  //console.log(collect);
   collect++;
   updatePos.x = this.x + starSize / 4;
   updatePos.y = this.y + starSize / 4;
-  if (collect < 6) {
+  if (collect <= 5) {
     emotions.push(this.html());
     spaceship.html(spaceship.html() + " " + this.html());
     this.html('');
     this.style('opacity', '0.2');
+  } else if (collect == 6) {
+    galaxyNextB = createButton('Next');
+    galaxyNextB.class('continueButton');
+    galaxyNextB.mousePressed(landing);
   }
   startTravel = true;
   //console.log(emotions);

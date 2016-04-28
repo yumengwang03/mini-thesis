@@ -41,6 +41,10 @@ var galaxyMsg;
 var galaxyNextB;
 // landing - lung/breathing
 var breathStarted = false;
+var breatImg;
+var planetImg;
+var landingMove;
+var planetMove;
 var breathMsg;
 var breathNextB;
 // fresh air message
@@ -87,6 +91,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   theEnd = false;
+  landingMove = height;
   //socket = io.connect('http://localhost:8080');
 
   startPage();
@@ -106,6 +111,13 @@ function draw() {
   }
   if (lampStarted) {
     lampDraw();
+  }
+  if (breathStarted) {
+    landingMove -= 2;
+    if (landingMove <= height - height / 1.4) {
+      landingMove = height - height / 1.4;
+    }
+    breathImg.position(width / 4, landingMove);
   }
 }
 
@@ -230,11 +242,12 @@ function galaxyOfEmotions() {
   spaceshipNextB.remove();
   galaxyMsg = createElement('h1', "Welcome to the Universe of Adjectives");
   galaxyMsg.class('message');
-  galaxyNextB = createButton('Next');
-  galaxyNextB.class('continueButton');
-  galaxyNextB.mousePressed(landing);
-
   galaxyStarted = true;
+  // if (landingReady) {
+  //   galaxyNextB = createButton('Next');
+  //   galaxyNextB.class('continueButton');
+  //   galaxyNextB.mousePressed(landing);
+  // }
 }
 
 function landing() {
@@ -242,6 +255,9 @@ function landing() {
   galaxyMsg.remove();
   galaxyNextB.remove();
   breathMsg = createElement('h1', "We are landing on Datatopia");
+  breathImg = createImg('img/spaceship-above.png');
+  breathImg.position(width / 4, landingMove);
+  breathImg.size(width / 2, height / 1.4);
   breathMsg.class('message');
   breathNextB = createButton('next');
   breathNextB.class('continueButton');
@@ -252,10 +268,15 @@ function landing() {
   for (var i = 0; i < stars.length; i++) {
     stars[i].adjStar.remove();
   }
+
+  breathStarted = true;
 }
 
 function landing2() {
   console.log("landing2");
+  breathStarted = false;
+
+  breathImg.remove();
   breathMsg.remove();
   breathNextB.remove();
   breathMsg2 = createElement('h1', "breathe");
@@ -338,7 +359,7 @@ function force() {
     //limit = 1;
     lights[i].photon.remove();
     lights.splice(0, i);
-    
+
     // if (lights.length == 0) {
     //   console.log(lights.length);
     //}
