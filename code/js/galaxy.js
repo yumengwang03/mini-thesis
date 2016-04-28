@@ -155,12 +155,12 @@ function travel() {
   collect++;
   updatePos.x = this.x + starSize / 4;
   updatePos.y = this.y + starSize / 4;
-  if (collect <= 5) {
+  if (collect < 5) {
     emotions.push(this.html());
     spaceship.html(spaceship.html() + " " + this.html());
     this.html('');
     this.style('opacity', '0.2');
-  } else if (collect == 6) {
+  //} else if (collect == 5) {
     galaxyNextB = createButton('Next');
     galaxyNextB.class('continueButton');
     galaxyNextB.mousePressed(landing);

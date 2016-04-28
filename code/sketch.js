@@ -40,23 +40,24 @@ var galaxyStarted = false;
 var galaxyMsg;
 var galaxyNextB;
 // landing - lung/breathing
-var breathStarted = false;
-var breatImg;
+var landingStarted = false;
+var landingImg;
 var planetImg;
 var landingMove;
 var planetMove;
+var landingMsg;
+var landingNextB;
+// breathe 1
+var breathStarted = false;
 var breathMsg;
 var breathNextB;
-// fresh air message
+// breathe 2
 var breathMsg2;
 var breathNextB2;
-// scenery poem message
-var sceneryMsg;
-var sceneryNextB;
 // scenery poem
 var sceneryStarted = false;
-var sceneryMsg2;
-var sceneryNextB2;
+var sceneryMsg;
+var sceneryNextB;
 // ?
 var xNextB;
 // ?
@@ -92,10 +93,11 @@ function setup() {
 
   theEnd = false;
   landingMove = height;
+  planetMove = -height;
   //socket = io.connect('http://localhost:8080');
 
   startPage();
-
+  airSetup();
   galaxySetup();
   numberSetup();
   lampSetup();
@@ -109,15 +111,20 @@ function draw() {
   if (galaxyStarted) {
     galaxyDraw();
   }
+  if (breathStarted) {
+    airDraw();
+  }
   if (lampStarted) {
     lampDraw();
   }
-  if (breathStarted) {
+  if (landingStarted) {
     landingMove -= 2;
     if (landingMove <= height - height / 1.4) {
       landingMove = height - height / 1.4;
     }
-    breathImg.position(width / 4, landingMove);
+    landingImg.position(width / 4, landingMove);
+    planetMove += 1;
+    planetImg.position(height/2, planetMove);
   }
 }
 
@@ -254,14 +261,17 @@ function landing() {
   console.log("landing");
   galaxyMsg.remove();
   galaxyNextB.remove();
-  breathMsg = createElement('h1', "We are landing on Datatopia");
-  breathImg = createImg('img/spaceship-above.png');
-  breathImg.position(width / 4, landingMove);
-  breathImg.size(width / 2, height / 1.4);
-  breathMsg.class('message');
-  breathNextB = createButton('next');
-  breathNextB.class('continueButton');
-  breathNextB.mousePressed(landing2);
+  landingMsg = createElement('h1', "We are landing on Datatopia");
+  landingImg = createImg('img/spaceship-above.png');
+  landingImg.position(width / 4, landingMove);
+  landingImg.size(width / 2, height / 1.4);
+  planetImg = createImg('img/spaceship-above.png');
+  planetImg.position(width / 2, landingMove);
+  planetImg.size(width / 2, height / 1.4);
+  landingMsg.class('message');
+  landingNextB = createButton('next');
+  landingNextB.class('continueButton');
+  landingNextB.mousePressed(breathe1);
 
   galaxyStarted = false;
   spaceship.remove();
@@ -269,17 +279,30 @@ function landing() {
     stars[i].adjStar.remove();
   }
 
+  landingStarted = true;
+}
+
+function breathe1() {
+  console.log("breathe1");
+  landingStarted = false;
+
+  landingImg.remove();
+  landingMsg.remove();
+  landingNextB.remove();
+  breathMsg = createElement('h1', "breathe1");
+  breathMsg.class('message');
+  breathNextB = createButton('next');
+  breathNextB.class('continueButton');
+  breathNextB.mousePressed(breathe2);
+  
   breathStarted = true;
 }
 
-function landing2() {
-  console.log("landing2");
-  breathStarted = false;
-
-  breathImg.remove();
+function breathe2() {
+  console.log("breathe2");
   breathMsg.remove();
   breathNextB.remove();
-  breathMsg2 = createElement('h1', "breathe");
+  breathMsg2 = createElement('h1', "breathe2");
   breathMsg2.class('message');
   breathNextB2 = createButton('next');
   breathNextB2.class('continueButton');
@@ -290,17 +313,6 @@ function scenery() {
   console.log("scenery");
   breathMsg2.remove();
   breathNextB2.remove();
-  sceneryMsg = createElement('h1', "moutains");
-  sceneryMsg.class('message');
-  sceneryNextB = createButton('next');
-  sceneryNextB.class('continueButton');
-  sceneryNextB.mousePressed(scenery2);
-}
-
-function scenery2() {
-  console.log("scenery2");
-  sceneryMsg.remove();
-  sceneryNextB.remove();
   sceneryMsg2 = createElement('h1', "scenery poems");
   sceneryMsg2.class('message');
   sceneryNextB2 = createButton('next');
