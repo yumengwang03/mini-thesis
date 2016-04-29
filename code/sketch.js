@@ -52,6 +52,7 @@ var breathStarted = false;
 var breathMsg;
 var breathNextB;
 // breathe 2
+var breathStarted2 = false;
 var breathMsg2;
 var breathNextB2;
 // scenery poem
@@ -98,6 +99,7 @@ function setup() {
 
   startPage();
   airSetup();
+  lungSetup();
   galaxySetup();
   numberSetup();
   lampSetup();
@@ -111,8 +113,11 @@ function draw() {
   if (galaxyStarted) {
     galaxyDraw();
   }
-  if (breathStarted) {
-    airDraw();
+  // if (breathStarted) {
+  //   airDraw();
+  // }
+  if (breathStarted2) {
+    lungDraw();
   }
   if (lampStarted) {
     lampDraw();
@@ -124,12 +129,11 @@ function draw() {
     }
     landingImg.position(width / 4, landingMove);
     planetMove += 1;
-    planetImg.position(height/2, planetMove);
+    planetImg.position(height / 2, planetMove);
   }
 }
 
 function startPage() {
-
   noCanvas();
   mainTitle = select('#main-title');
   username = select('#username');
@@ -294,7 +298,7 @@ function breathe1() {
   breathNextB = createButton('next');
   breathNextB.class('continueButton');
   breathNextB.mousePressed(breathe2);
-  
+
   breathStarted = true;
 }
 
@@ -307,10 +311,16 @@ function breathe2() {
   breathNextB2 = createButton('next');
   breathNextB2.class('continueButton');
   breathNextB2.mousePressed(scenery);
+
+  breathStarted2 = true;
 }
 
 function scenery() {
   console.log("scenery");
+  lungImg.remove();
+  for (var i = 0; i < airList.length; i++) {
+    airList[i].air.remove();
+  }
   breathMsg2.remove();
   breathNextB2.remove();
   sceneryMsg2 = createElement('h1', "scenery poems");

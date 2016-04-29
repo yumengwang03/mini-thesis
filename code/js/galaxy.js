@@ -160,7 +160,7 @@ function travel() {
     spaceship.html(spaceship.html() + " " + this.html());
     this.html('');
     this.style('opacity', '0.2');
-  //} else if (collect == 5) {
+  } else if (collect == 5) {
     galaxyNextB = createButton('Next');
     galaxyNextB.class('continueButton');
     galaxyNextB.mousePressed(landing);

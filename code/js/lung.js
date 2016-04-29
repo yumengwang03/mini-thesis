@@ -7,8 +7,8 @@ var randomLungPos = [];
 var lungSize;
 var breathTime;
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
+function lungSetup() {
+  //createCanvas(windowWidth, windowHeight);
   //noCanvas();
   lungSize = 400;
   breathTime = 0;
@@ -18,7 +18,7 @@ function setup() {
 
 }
 
-function draw() {
+function lungDraw() {
   if (lungRunOnce < 1) {
     lungImg = createImg('img/lung.png');
     lungImg.size(lungSize * 1.2, lungSize);
