@@ -138,9 +138,9 @@ function startPage() {
   noCanvas();
   mainTitle = select('#main-title');
   mainTitle.size(width * 0.55, height * 0.3);
-  mainTitle.position(width*0.25, height* 0.25);
+  mainTitle.position(width*0.23, height* 0.25);
   title_name = select('#title-name');
-  title_name.position(width * 0.485, height * 0.6);
+  title_name.position(width * 0.487, height * 0.6);
   username = select('#username');
   username.size(200, 30);
   username.position(width / 2 - 100, height * 0.65);
