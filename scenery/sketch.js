@@ -4,15 +4,12 @@ var poemStarted;
 var skyLine;
 var mountainLine;
 var forestLine;
-var waterList = [];
 var waterWords = [];
-var waterPos = [];
-var yoff = 0.0;
-//var water;
+var river = [];
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  //noCanvas();
+  //createCanvas(windowWidth, windowHeight);
+  noCanvas();
   sceneryRunOnce = 0;
   poemStarted = false;
   skyLine = height / 4;
@@ -24,71 +21,63 @@ function setup() {
 function draw() {
   background(255);
   if (sceneryRunOnce < 1) {
-    // line(0, skyLine, width, skyLine);
-    // line(0, mountainLine, width, mountainLine);
-    // line(0, forestLine, width, forestLine);
-
-    // for (var i = 0; i < 100; i++) {
-    //   var water = new Water(waterWords[floor(random(0, waterWords.length))]);
-    //   waterList[i].push(water);
-    // }
-
-    for (var i = 0; i < windowWidth / 100; i++) {
-      var water = createP(waterWords[floor(random(0, waterWords.length))]);
-      waterList.push(water);
-      //console.log(water);
-      waterPos[i] = createVector(0, 0);
+    var xPos = [];
+    var yPos = [];
+    for (var i = 0; i < 6; i++) {
+      xPos.push(random(-100, 100));
+      yPos.push(i * height/4);
     }
-    //water = createP(waterWords[0]);
+    for (var j = 0; j < 6; j++) {
+      river.push(new Water(xPos[j], yPos[j]));
+    }
 
     sceneryRunOnce++;
     poemStarted = true;
   }
 
   if (poemStarted) {
-    // for (var i = 0; i < waterList.length; i++) {
-    //   waterList[i].display();
-    //   waterList[i].update();
-    // }
-
-    var xoff = 0;
-    for (var x = 0; x < waterList.length; x++) {
-      var y = map(noise(xoff, yoff), 0, 1, 200, 300);
-      stroke(0);
-      line(100 * x, y, 100 * x + 5, y);
-      //line(x, y + 20, x + 5, y + 20);
-      //waterList[9].position(x, y);
-      // waterPos.push(y);
-      waterPos[x].x = 100 * x;
-      waterPos[x].y = y;
-
-      //for (var i = 0; i < waterList.length; i++) {
-      //waterList[x].position(x, y);
-      //console.log(x);
-      //}
-
-      xoff += 0.05;
+    for (var i = 0; i < river.length; i++) {
+      river[i].update();
+      //river[i].reset();
     }
-    yoff += 0.01;
-    //console.log(waterPos);
-    for (var m = 0; m < waterList.length; m++) {
-      waterList[m].position(waterPos[m].x, waterPos[m].y);
-    }
-    
   }
 }
 
-function Water(word) {
-  this.poemPos = createVector(0, 0);
-  // this.poemPos.set(xPos, yPos);
-  this.word = word;
-  this.water = createP(this.word);
-
-  this.display = function() {
-
+function Water(xPos, yPos) {
+  this.waterList = [];
+  this.waterPos = [];
+  this.yoff = 0;
+  this.xUpdate = 0;
+  for (var i = 0; i < windowWidth / 100 - 1; i++) {
+    this.water = createP(waterWords[floor(random(0, waterWords.length))]);
+    this.waterList.push(this.water);
+    this.waterPos[i] = createVector(0, 0);
   }
 
   this.update = function() {
+    this.xoff = 0;
+    for (var x = 0; x < this.waterList.length; x++) {
+      this.y = map(noise(this.xoff, this.yoff), 0, 1, 0.6 * windowHeight, windowHeight);
+      this.waterPos[x].x = 100 * x + xPos + this.xUpdate;
+      this.waterPos[x].y = this.y + yPos;
+      this.xoff += 0.05;
+    }
+    this.yoff += 0.01;
+    //this.xUpdate += 5;
 
-  }
+    for (var m = 0; m < this.waterList.length; m++) {
+      this.waterPos[m].x += 3;
+      this.waterList[m].position(this.waterPos[m].x, this.waterPos[m].y);
+    }
+  };
+
+  this.reset = function() {
+    for (var i = 0; i < this.waterList.length; i++) {
+      if (this.waterPos[i].x > windowWidth + 200) {
+        this.xUpdate = -200;
+        this.waterPos[i].x = 100 * i + xPos + this.xUpdate;
+      }
+    }
+  };
+
 }
