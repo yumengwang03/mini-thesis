@@ -8,6 +8,21 @@ canvas {
   vertical-align: top;
 }
 
+#username {
+  background: transparent;
+  resize: none;
+  border: dashed 2px;
+  border-color: #FFE874;
+  color: #FFE874;
+  font-family: monospace;
+  font-size: 2em;
+  outline: none;
+}
+
+#title-name {
+  color: #FFE874;
+}
+
 .continueButton {
   color: green;
 }
@@ -16,6 +31,4 @@ canvas {
   color: orange;
 }
 
-.smallMessage {
-  
-}
+.smallMessage {}

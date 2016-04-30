@@ -11,6 +11,7 @@ var theEnd;
 // start page
 var mainTitle;
 var username;
+var title_name;
 var startB;
 // welcome page
 var welcomeMessage;
@@ -136,7 +137,13 @@ function draw() {
 function startPage() {
   noCanvas();
   mainTitle = select('#main-title');
+  mainTitle.size(width / 2, height / 4);
+  mainTitle.position(width / 4, height / 4);
+  title_name = select('#title-name');
+  title_name.position(width * 0.485, height * 0.5)
   username = select('#username');
+  username.size(200, 30);
+  username.position(width / 2 - 100, height * 0.55);
   startB = select('#startButton');
   startB.class('continueButton');
   startB.mousePressed(function() {
@@ -151,6 +158,7 @@ function startPage() {
 function welcomePage() {
   mainTitle.remove();
   username.remove();
+  title_name.remove();
   startB.remove();
   welcomeMessage = createElement('h1', 'welcome ' + name);
   welcomeMessage.class('message');
