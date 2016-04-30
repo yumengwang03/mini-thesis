@@ -12,23 +12,33 @@ canvas {
   background: transparent;
   resize: none;
   border: dashed 2px;
-  border-color: #FFE874;
-  color: #FFE874;
+  border-color: #B3B3B3;
+  color: #B3B3B3;
   font-family: monospace;
   font-size: 2em;
   outline: none;
 }
 
 #title-name {
-  color: #FFE874;
+  font-weight: lighter;
+  color: #B3B3B3;
 }
 
 .continueButton {
-  color: green;
+  width: 80px;
+  height: 40px;
+  color: white;
+  outline: none;
+  font-family: monospace;
+  font-size: 1.2em;
+  background-color: #0FE9CE;
+  border-radius: 10px;
+  border: white;
 }
 
+
 .message {
-  color: orange;
+  color: #B3B3B3;
 }
 
 .smallMessage {}

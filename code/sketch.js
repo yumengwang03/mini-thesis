@@ -137,15 +137,19 @@ function draw() {
 function startPage() {
   noCanvas();
   mainTitle = select('#main-title');
-  mainTitle.size(width / 2, height / 4);
-  mainTitle.position(width / 4, height / 4);
+  mainTitle.size(width * 0.55, height * 0.3);
+  mainTitle.position(width*0.25, height* 0.25);
   title_name = select('#title-name');
-  title_name.position(width * 0.485, height * 0.5)
+  title_name.position(width * 0.485, height * 0.6);
   username = select('#username');
   username.size(200, 30);
-  username.position(width / 2 - 100, height * 0.55);
-  startB = select('#startButton');
+  username.position(width / 2 - 100, height * 0.65);
+  //startB = select('#startButton');
+  startB = createButton('Sign up');
   startB.class('continueButton');
+  //startB.size(80, 40);
+  startB.position(width/2 - 40, height * 0.75);
+  //startB.class('startButton');
   startB.mousePressed(function() {
     name = username.value();
     if (name !== "") {
