@@ -15,7 +15,7 @@ var questionsP = [];
 var questions = [];
 var answers = [];
 var areaSize;
-var bright;
+//var backgroundVal;
 // var road;
 var endRoad;
 
@@ -29,7 +29,7 @@ function lampSetup() {
   lightPos = createVector(0, 0);
   limit = 12;
   areaSize = height / 3;
-  bright = 0;
+  //backgroundVal = 0;
   questions = ["how are you?", "what's your favorite color?", "who's your best friend?", "Cats or dogs?", "Do you like bananas?"];
 }
 
@@ -135,7 +135,7 @@ function lampDraw() {
   }
 
   if (lightStarted && lightOn) {
-    background(bright);
+    background(backgroundVal);
     if (millis() > lightTime + 120) {
       addLight();
       lightTime = millis();
@@ -155,8 +155,8 @@ function lampDraw() {
       return item;
     });
     //console.log(allClicked);
-    if (allClicked && bright < 255) {
-      bright += 1.5;
+    if (allClicked && backgroundVal < 255) {
+      backgroundVal += 1.5;
     }
 
   }

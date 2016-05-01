@@ -85,9 +85,8 @@ var boxMsg2;
 var boxImg2;
 var endB;
 
-// // the End
-// var endMsg;
-// var endB;
+var backgroudVal;
+var all; // body element
 
 
 function setup() {
@@ -122,6 +121,7 @@ function draw() {
   }
   if (lampStarted) {
     lampDraw();
+    all.style('background-color', 'rgb(' + backgroundVal + ',' + backgroundVal + ',' + backgroundVal + ')');
   }
   if (landingStarted) {
     landingMove -= 2;
@@ -138,7 +138,7 @@ function startPage() {
   noCanvas();
   mainTitle = select('#main-title');
   mainTitle.size(width * 0.55, height * 0.3);
-  mainTitle.position(width*0.23, height* 0.25);
+  mainTitle.position(width * 0.23, height * 0.25);
   title_name = select('#title-name');
   title_name.position(width * 0.487, height * 0.6);
   username = select('#username');
@@ -148,7 +148,7 @@ function startPage() {
   startB = createButton('Sign up');
   startB.class('continueButton');
   //startB.size(80, 40);
-  startB.position(width/2 - 40, height * 0.75);
+  startB.position(width / 2 - 40, height * 0.75);
   //startB.class('startButton');
   startB.mousePressed(function() {
     name = username.value();
@@ -287,7 +287,7 @@ function landing() {
   landingMsg.class('message');
   landingNextB = createButton('next');
   landingNextB.class('continueButton');
-  landingNextB.mousePressed(breathe1);
+  landingNextB.mousePressed(scenery);
 
   galaxyStarted = false;
   spaceship.remove();
@@ -298,13 +298,29 @@ function landing() {
   landingStarted = true;
 }
 
-function breathe1() {
-  console.log("breathe1");
+function scenery() {
+  console.log("scenery");
+  all = select('body');
+  backgroundVal = 0;
+  all.style('background-color', 'rgb(' + backgroundVal + ',' + backgroundVal + ',' + backgroundVal + ')');
+  
   landingStarted = false;
 
   landingImg.remove();
   landingMsg.remove();
   landingNextB.remove();
+  
+  sceneryMsg = createElement('h1', "scenery poems");
+  sceneryMsg.class('message');
+  sceneryNextB = createButton('next');
+  sceneryNextB.class('continueButton');
+  sceneryNextB.mousePressed(breathe1);
+}
+
+function breathe1() {
+  console.log("breathe1");
+  sceneryMsg.remove();
+  sceneryNextB.remove();
   breathMsg = createElement('h1', "breathe1");
   breathMsg.class('message');
   breathNextB = createButton('next');
@@ -316,36 +332,30 @@ function breathe1() {
 
 function breathe2() {
   console.log("breathe2");
+  breathStarted = false;
   breathMsg.remove();
   breathNextB.remove();
   breathMsg2 = createElement('h1', "breathe2");
   breathMsg2.class('message');
   breathNextB2 = createButton('next');
   breathNextB2.class('continueButton');
-  breathNextB2.mousePressed(scenery);
+  breathNextB2.mousePressed(x);
 
   breathStarted2 = true;
 }
 
-function scenery() {
-  console.log("scenery");
-  lungImg.remove();
+
+
+function x() {
+  console.log("x");
+  breathStarted2 = false;
+   lungImg.remove();
   for (var i = 0; i < airList.length; i++) {
     airList[i].air.remove();
   }
   breathMsg2.remove();
   breathNextB2.remove();
-  sceneryMsg2 = createElement('h1', "scenery poems");
-  sceneryMsg2.class('message');
-  sceneryNextB2 = createButton('next');
-  sceneryNextB2.class('continueButton');
-  sceneryNextB2.mousePressed(x);
-}
-
-function x() {
-  console.log("x");
-  sceneryMsg2.remove();
-  sceneryNextB2.remove();
+  
   //sceneryMsg2 = createElement('h1', "We are landing on Datatopia");
   //sceneryMsg2.class('message');
   xNextB = createButton('next');
@@ -369,7 +379,6 @@ function streetLamp() {
   console.log("street lamp");
   //sceneryMsg.remove();
   xNextB2.remove();
-
   lampStarted = true;
 
   road = createImg('img/road.png');
@@ -428,7 +437,7 @@ function storyBox() {
   forceNextB.remove();
   boxMsg = createElement('h1', "The box");
   boxMsg.class('message');
-  boxImg = createImg('img/planet1.png');
+  boxImg = createImg('img/box.png');
   boxNextB = createButton('end');
 
   forceStarted = false;

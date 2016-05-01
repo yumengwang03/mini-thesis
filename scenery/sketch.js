@@ -6,6 +6,7 @@ var mountainLine;
 var forestLine;
 var waterWords = [];
 var river = [];
+var night;
 
 function setup() {
   //createCanvas(windowWidth, windowHeight);
@@ -21,18 +22,22 @@ function setup() {
 function draw() {
   background(255);
   if (sceneryRunOnce < 1) {
+    
+    night = createDiv('');
+    night.size(windowWidth, windowHeight);
+    night.position(0,0);
+    night.style('background-color', 'black');
+    sceneryRunOnce++;
+    poemStarted = true;
     var xPos = [];
     var yPos = [];
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 8; i++) {
       xPos.push(random(-100, 100));
       yPos.push(i * height/4);
     }
-    for (var j = 0; j < 6; j++) {
+    for (var j = 0; j < 8; j++) {
       river.push(new Water(xPos[j], yPos[j]));
     }
-
-    sceneryRunOnce++;
-    poemStarted = true;
   }
 
   if (poemStarted) {
@@ -50,6 +55,8 @@ function Water(xPos, yPos) {
   this.xUpdate = 0;
   for (var i = 0; i < windowWidth / 100 - 1; i++) {
     this.water = createP(waterWords[floor(random(0, waterWords.length))]);
+    this.water.style('font-family', 'monospace');
+    this.water.style('color', '#FFEA00');
     this.waterList.push(this.water);
     this.waterPos[i] = createVector(0, 0);
   }
