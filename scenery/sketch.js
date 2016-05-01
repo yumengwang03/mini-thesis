@@ -7,6 +7,11 @@ var forestLine;
 var waterWords = [];
 var river = [];
 var night;
+var mountainImg;
+var riverImg;
+var grassList = [];
+var grassLetters = [];
+var grassTime = 0;
 
 function setup() {
   //createCanvas(windowWidth, windowHeight);
@@ -17,26 +22,38 @@ function setup() {
   mountainLine = height / 2.4;
   forestLine = 3 * height / 4;
   waterWords = ["bottle", "blue", "melancholy", "destruction", "willingness", "spoken", "iridescent"];
+  grassLetters = ['M', 'w', '1', 'u', 'Y', 'l'];
 }
 
 function draw() {
-  background(255);
+
   if (sceneryRunOnce < 1) {
-    
-    night = createDiv('');
-    night.size(windowWidth, windowHeight);
-    night.position(0,0);
-    night.style('background-color', 'black');
+    mountainImg = createImg('img/mountain.png');
+    mountainImg.size(windowWidth, windowWidth / 6);
+    mountainImg.position(0, windowHeight * 0.15);
+    riverImg = createImg('img/river.png');
+    riverImg.size(windowWidth, windowWidth / 6);
+    riverImg.position(0, windowHeight * 0.75);
     sceneryRunOnce++;
     poemStarted = true;
     var xPos = [];
     var yPos = [];
     for (var i = 0; i < 8; i++) {
       xPos.push(random(-100, 100));
-      yPos.push(i * height/4);
+      yPos.push(i * height / 4);
     }
     for (var j = 0; j < 8; j++) {
       river.push(new Water(xPos[j], yPos[j]));
+    }
+    for (var m = 0; m < windowWidth / 20; m++) {
+      grassList[m] = [];
+      for (var n = 0; n < (windowHeight * 0.75 - (windowHeight * 0.12 + windowWidth / 6)) / 20 - 1; n++) {
+        grassList[m][n] = createP(grassLetters[floor(random(0, grassLetters.length))]);
+        grassList[m][n].style('color', '#0EE86C');
+        grassList[m][n].style('opacity', '0.8');
+        grassList[m][n].position(20 * m + random(-5, 5), windowHeight * 0.1 + windowWidth / 6 + 20 * n + random(-10, 10));
+        grassList[m][n].style('font-size', 0.4 + n * 0.2 + 'em');
+      }
     }
   }
 
@@ -45,6 +62,19 @@ function draw() {
       river[i].update();
       //river[i].reset();
     }
+    for (var m = 0; m < 6; m++) {
+      for (var n = 0; n < 3; n++) {
+        if (millis() > grassTime + 1200) {
+            if (grassList[m][n].html() == grassLetters[0]) {
+              grassList[m][n].html(grassLetters[1]);
+            }
+          grassTime = millis();
+        }
+      }
+    }
+
+
+
   }
 }
 
@@ -56,7 +86,7 @@ function Water(xPos, yPos) {
   for (var i = 0; i < windowWidth / 100 - 1; i++) {
     this.water = createP(waterWords[floor(random(0, waterWords.length))]);
     this.water.style('font-family', 'monospace');
-    this.water.style('color', '#FFEA00');
+    this.water.style('color', 'rgba(255, 230, 0, 0.8)');
     this.waterList.push(this.water);
     this.waterPos[i] = createVector(0, 0);
   }
@@ -88,3 +118,5 @@ function Water(xPos, yPos) {
   };
 
 }
+
+// function Grass(letter)

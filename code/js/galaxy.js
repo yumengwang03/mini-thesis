@@ -161,7 +161,7 @@ function travel() {
     this.html('');
     this.style('opacity', '0.2');
     if (collect == 5) {
-      galaxyNextB = createButton('Next');
+      galaxyNextB = createButton('Ready for landing');
       galaxyNextB.class('continueButton-day');
       galaxyNextB.mousePressed(landing);
     }

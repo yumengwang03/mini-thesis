@@ -83,6 +83,7 @@ var boxNextB;
 var boxStarted2 = false;
 var boxMsg2;
 var boxImg2;
+var boxPass;
 var endB;
 
 var backgroudVal;
@@ -149,7 +150,7 @@ function startPage() {
   username.size(200, 30);
   username.position(width / 2 - 100, height * 0.65);
   startB = createButton('Sign up');
-  startB.class('basicButton');
+  startB.class('basic-Button');
   startB.position(width / 2 - 97, height * 0.72);
   startB.mousePressed(function() {
     name = username.value();
@@ -165,7 +166,7 @@ function welcomePage() {
   username.remove();
   title_name.remove();
   startB.remove();
-  welcomeMessage = createElement('h1', 'Welcome ' + name + '! Thank you for signing up for the interstellar trip to Datatopia. Datatopia is a planet on the edge of Galaxy of Emotions. You will travel with other two passengers during this trip. They have been to Datatopia before, so they will be your tour guides. You will meet them now.');
+  welcomeMessage = createElement('h1', 'Welcome ' + name + '! Thank you for signing up for the interstellar trip to Datatopia. Datatopia is a planet on the edge of Galaxy of Emotions. You will travel with other two passengers during this trip. They have been to Datatopia before, so they will be your tour guides. You will meet them shortly.');
   welcomeMessage.class('message-center');
   welcomeNextB = createButton('Next  →');
   welcomeNextB.class('continueButton-day');
@@ -279,14 +280,9 @@ function galaxyOfEmotions() {
   spaceshipQ.remove();
   spaceshipA.remove();
   spaceshipNextB.remove();
-  galaxyMsg = createElement('h1', "Welcome to the Universe of Adjectives");
-  galaxyMsg.class('message');
+  galaxyMsg = createElement('h1', "We are travelling through the Galaxy of Emotions. Stop by the planets to collect up to 5 emotions (click on them).");
+  galaxyMsg.class('message-top');
   galaxyStarted = true;
-  // if (landingReady) {
-  //   galaxyNextB = createButton('Next');
-  //   galaxyNextB.class('continueButton');
-  //   galaxyNextB.mousePressed(landing);
-  // }
 }
 
 function landing() {
@@ -442,9 +438,12 @@ function storyBox() {
   boxMsg = createElement('h1', "The box");
   boxMsg.class('message-top');
   boxImg = createImg('img/box.png');
-  boxImg.size(0.6*width, 0.5*width);
-  boxImg.position(0.2*width, 0.2*height);
+  boxImg.size(0.4*width, 0.3*width);
+  boxImg.position(0.3*width, 0.2*height);
+  boxPass = createElement('textarea','password');
+  boxPass.class('basic-input')
   boxNextB = createButton('end');
+  boxNextB.class('basic-Button');
 
   forceStarted = false;
   pitImg.remove();

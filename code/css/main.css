@@ -26,7 +26,7 @@ canvas {
   color: #B3B3B3;
 }
 
-.basicButton {
+.basic-Button {
   width: 200px;
   height: 40px;
   color: white;
@@ -87,12 +87,14 @@ canvas {
 }
 
 .message-top {
+  margin-right: 20%;
   color: #B3B3B3;
-  text-align: center;
+  text-align: left;
 }
 
 .basic-input {
   background: transparent;
+  font-family: monospace;
   resize: none;
   border: dashed #B3B3B3 2px;
   font-size: 1em;
