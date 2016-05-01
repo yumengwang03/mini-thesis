@@ -8,8 +8,10 @@ var pitSize;
 var rockSize;
 var pitImg;
 var rockMsg = [];
+var showHiddenButton = 0;
 
 function numberSetup() {
+  //noCanvas();
   //createCanvas(windowWidth, windowHeight);
   //numStarted = false;
   words = ["terminal", "eggs", "reflective", "shadow", "nefarious", "salutation", "limpidity", "T-shirts", "grey", "proposition", "dumplings", "keyboard", "banana", "texture", "tangible", "blue", "knitting", "pencil", "innovative", "carbon"];
@@ -49,7 +51,7 @@ function changeMoved2() {
 function numberDraw() {
   // imageMode(CENTER);
   // image(pitImg, width / 2 - 10, height / 2, pitSize * 2.5, pitSize * 1.8);
-  
+
   if (runOnce < 1) {
     pitImg = createImg('img/purple.png');
     pitImg.position(width / 2 - pitSize * 2.5 / 2, 0);
@@ -85,6 +87,12 @@ function numberDraw() {
         rocks[i].fall(hiddenPos[0].x, hiddenPos[0].y, 1);
       } else {
         rocks[i].fall(random(0, width - 2 * rockSize), random(0, height - 2 * rockSize), 0);
+        if (showHiddenButton < 1) {
+          forceNextB = createButton('Go to the box');
+          forceNextB.class('continueButton-day');
+          forceNextB.mousePressed(storyBox);
+          showHiddenButton++;
+        }
       }
     }
   }

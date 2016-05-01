@@ -18,9 +18,9 @@ var areaSize;
 //var backgroundVal;
 // var road;
 var endRoad;
+var showRoadButton = 0;
 
 function lampSetup() {
-  //createCanvas(windowWidth, windowHeight);
   lightRunOnce = 0;
   lightStarted = false;
   lightOn = false;
@@ -35,9 +35,9 @@ function lampSetup() {
 
 function lampDraw() {
   if (lightRunOnce < 1) {
-    // createCanvas(windowWidth, windowHeight);
+    //createCanvas(windowWidth, windowHeight);
     // background(0);
-    
+
     // road = createImg('img/road.png');
     // road.position(0, 0);
     // road.size(width, height);
@@ -157,6 +157,13 @@ function lampDraw() {
     //console.log(allClicked);
     if (allClicked && backgroundVal < 255) {
       backgroundVal += 1.5;
+      if (showRoadButton < 1 && backgroundVal >= 255) {
+        backgroundVal = 255;
+        lampNextB = createButton('go to mysterious force');
+        lampNextB.class('continueButton-day');
+        lampNextB.mousePressed(force);
+        showRoadButton++;
+      }
     }
 
   }
@@ -224,7 +231,7 @@ function Light(posX, posY, word) {
     this.photon.position(this.pos.x - 5 * this.size / 2, this.pos.y);
 
   };
-  
+
   // this.stop = function() {
   //   this.photon.remove();
   // }

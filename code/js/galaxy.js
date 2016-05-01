@@ -48,9 +48,9 @@ function galaxyDraw() {
     shipSize = height / 6.5;
     spaceship = createButton('');
     spaceship.position(shipPos.x, shipPos.y);
-    spaceship.size(shipSize, shipSize);
+    spaceship.size(shipSize, shipSize * 0.9);
 
-    spaceship.style('background', 'url(img/spaceship.png)');
+    spaceship.style('background', 'url(img/spaceship.png) no-repeat');
     spaceship.style('background-size', '100%');
     spaceship.style('outline', 'none');
     spaceship.style('border', 'white');
@@ -155,15 +155,16 @@ function travel() {
   collect++;
   updatePos.x = this.x + starSize / 4;
   updatePos.y = this.y + starSize / 4;
-  if (collect < 5) {
+  if (collect <= 5) {
     emotions.push(this.html());
     spaceship.html(spaceship.html() + " " + this.html());
     this.html('');
     this.style('opacity', '0.2');
-  } else if (collect == 5) {
-    galaxyNextB = createButton('Next');
-    galaxyNextB.class('continueButton');
-    galaxyNextB.mousePressed(landing);
+    if (collect == 5) {
+      galaxyNextB = createButton('Next');
+      galaxyNextB.class('continueButton-day');
+      galaxyNextB.mousePressed(landing);
+    }
   }
   startTravel = true;
   //console.log(emotions);

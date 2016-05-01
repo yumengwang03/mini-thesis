@@ -19,6 +19,7 @@ var bright;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  //noCanvas();
   lightRunOnce = 0;
   lightStarted = false;
   lightOn = false;
