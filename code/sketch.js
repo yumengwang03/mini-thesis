@@ -1,12 +1,11 @@
 // user inputs to pass to server
 var name;
 var hairChoice;
+var spaceshipAnswer;
 
 // socket
 var socket;
 var theEnd;
-
-// gui
 
 // start page
 var mainTitle;
@@ -30,22 +29,25 @@ var eyeMsg;
 var eyeSlider;
 var eyeNextB;
 // boarding spaceship
-var spaceshipStarted = false;
+var boardingStarted = false;
 var spaceshipMsg;
 var spaceshipImg;
 var spaceshipQ;
 var spaceshipA;
 var spaceshipNextB;
+// var boardingSpeed;
+// var boardingPos;
 // Galaxy of Emotions
 var galaxyStarted = false;
 var galaxyMsg;
 var galaxyNextB;
-// landing - lung/breathing
+// landing 
 var landingStarted = false;
 var landingImg;
 var planetImg;
 var landingMove;
 var planetMove;
+var planetSpeed;
 var landingMsg;
 var landingNextB;
 // breathe 1
@@ -77,29 +79,36 @@ var forceNextB;
 var boxStarted = false;
 var boxMsg;
 var boxImg;
-var password; // input
+var boxPass; // input
 var boxNextB;
 // the end
 var boxStarted2 = false;
-var boxMsg2;
 var boxImg2;
-var boxPass;
+var endMsg;
 var endB;
 
 var backgroudVal;
 var fadingVal;
 var all; // body element
 
+// past travellers
+var passenger1 = "Gentry";
+var passenger2 = "Monica";
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   fadingVal = 0;
+  boardingSpeed = 2;
+  boardingPos = height * 0.15;
   theEnd = false;
   landingMove = height;
-  planetMove = -height;
+  planetMove = -height / 1.4;
+  planetSpeed = 1;
   //socket = io.connect('http://localhost:8080');
 
   startPage();
+  scenerySetup();
   airSetup();
   lungSetup();
   galaxySetup();
@@ -112,12 +121,18 @@ function draw() {
   if (forceStarted) {
     numberDraw();
   }
+  // if (boardingStarted) {
+  //   boardingPos += boardingSpeed;
+  //   if (boardingPos >= height - width * 0.5 * 0.86 || boardingPos <= 0.15 * height) {
+  //     boardingSpeed *= -1;
+  //   }
+  // }
   if (galaxyStarted) {
     galaxyDraw();
   }
-  // if (breathStarted) {
-  //   airDraw();
-  // }
+  if (sceneryStarted) {
+    sceneryDraw();
+  }
   if (breathStarted2) {
     lungDraw();
   }
@@ -129,13 +144,14 @@ function draw() {
     landingMove -= 2;
     if (landingMove <= height - height / 1.4) {
       landingMove = height - height / 1.4;
+      planetSpeed = 0;
     }
     landingImg.position(width / 4, landingMove);
-    planetMove += 1;
-    planetImg.position(height / 2, planetMove);
-    // if (planetMove >= 0) {
-      
-    // }
+    planetMove += planetSpeed;
+    planetImg.position(width * 0.125, planetMove);
+    if (planetMove >= 0) {
+      planetMove = 0;
+    }
   }
 }
 
@@ -166,7 +182,7 @@ function welcomePage() {
   username.remove();
   title_name.remove();
   startB.remove();
-  welcomeMessage = createElement('h1', 'Welcome ' + name + '! Thank you for signing up for the interstellar trip to Datatopia. Datatopia is a planet on the edge of Galaxy of Emotions. You will travel with other two passengers during this trip. They have been to Datatopia before, so they will be your tour guides. You will meet them shortly.');
+  welcomeMessage = createElement('h1', 'Welcome ' + name + '! Thank you for signing up for the interstellar trip to Datatopia. Datatopia is a planet on the edge of the Galaxy of Emotions. You will travel with other two passengers during this trip. They have been to Datatopia before, so they will be your tour guides. You will meet them shortly.');
   welcomeMessage.class('message-center');
   welcomeNextB = createButton('Next  →');
   welcomeNextB.class('continueButton-day');
@@ -180,7 +196,7 @@ function welcomePage() {
 function traveller1() {
   welcomeMessage.remove();
   welcomeNextB.remove();
-  hairMsg = createElement('h1', 'has grey hair. How do you know if his hair is turning black or turning white, or staying grey forever?');
+  hairMsg = createElement('h1', passenger1 + ' has grey hair. How do you know if his hair is turning black or turning white, or staying grey forever?');
   hairMsg.class('message-center');
   hairB[0] = createButton('Black');
   hairB[1] = createButton('White');
@@ -223,13 +239,13 @@ function traveller1_2() {
   var nextTraveller = "run into someone with eyes in glowing orange. She is staring at you.";
   switch (hairChoice) {
     case 1:
-      hairMsg2 = createElement('h1', "has grey hair, but he's becoming younger and soon his hair will become black. His curiosity has drvien him to travel around several planets in Galaxy of Emotions. You and" + nextTraveller);
+      hairMsg2 = createElement('h1', passenger1 + " has grey hair, but he's becoming younger and soon his hair will become black. His curiosity has drvien him to travel around several planets in Galaxy of Emotions. You and " + passenger1 + " " + nextTraveller);
       break;
     case 2:
-      hairMsg2 = createElement('h1', "'s hair is turning white. He realizes his movement has become slow. But he will make through the journey. You and" + nextTraveller);
+      hairMsg2 = createElement('h1', passenger1 + "'s hair is turning white. He realizes his movement has become slow. But he will make through the journey. You and " + passenger1 + " " + nextTraveller);
       break;
     case 3:
-      hairMsg2 = createElement('h1', "is 43 years old, but he has been at this age for more than 2000 years. He is bored with his life and an adventure is badly needed for him. You and" + nextTraveller);
+      hairMsg2 = createElement('h1', passenger1 + " is 43 years old, but he has been at this age for more than 2000 years. He is bored with his life and an adventure is badly needed for him. You and " + passenger1 + " " + nextTraveller);
       break;
   }
   hairMsg2.class('message-center');
@@ -242,7 +258,7 @@ function traveller2() {
   console.log("traveller2");
   hairMsg2.remove();
   hairNextB.remove();
-  eyeMsg = createElement('h1', 'Her name is' + '. She can freeze time and people and stare at them as long as she wants.');
+  eyeMsg = createElement('h1', 'Her name is ' + passenger2 + '. She can freeze time and people and stare at them as long as she wants.');
   eyeMsg.class('message-center');
   eyeSlider = createSlider(0, 100, 20);
   eyeNextB = createButton('Next  →');
@@ -255,32 +271,40 @@ function boarding() {
   eyeMsg.remove();
   eyeSlider.remove();
   eyeNextB.remove();
-  spaceshipMsg = createElement('h1', "Welcome on board");
+  spaceshipMsg = createElement('h1', 'Welcome on board, ' + name + ', ' + passenger1 + ', ' + passenger2);
   spaceshipMsg.class('message-top');
   spaceshipImg = createImg('img/spaceship.jpg');
   spaceshipImg.size(width * 0.5, width * 0.5 * 0.86);
-  spaceshipImg.position(width * 0.4, height * 0.15);
+  spaceshipImg.position(width * 0.4, boardingPos);
   spaceshipQ = createElement('h2', 'Boarding pass: what is your favorite fruit?');
   spaceshipQ.style('color', '#B3B3B3');
   spaceshipQ.position(0.1 * width, 0.2 * height);
   spaceshipA = createElement('textarea', '');
   spaceshipA.class('basic-input');
-  spaceshipA.size(width/6, height/10);
+  spaceshipA.size(width / 6, height / 10);
   spaceshipA.position(0.1 * width, 0.3 * height);
+
   spaceshipNextB = createButton("Take off now");
   spaceshipNextB.class('continueButton-day');
-  spaceshipNextB.mousePressed(galaxyOfEmotions);
+  spaceshipNextB.mousePressed(function() {
+    spaceshipAnswer = spaceshipA.value();
+    if (spaceshipAnswer != '') {
+      galaxyOfEmotions();
+      boardingStarted = true;
+    }
+  });
 }
 
 function galaxyOfEmotions() {
   console.log("galaxy of emotions");
+  boardingStarted = false;
   spaceshipMsg.remove();
   spaceshipNextB.remove();
   spaceshipImg.remove();
   spaceshipQ.remove();
   spaceshipA.remove();
   spaceshipNextB.remove();
-  galaxyMsg = createElement('h1', "We are travelling through the Galaxy of Emotions. Stop by the planets to collect up to 5 emotions (click on them).");
+  galaxyMsg = createElement('h1', passenger1 + ": We are travelling through the Galaxy of Emotions now. Let's stop by the planets to collect some emotions. (click on more than 5)");
   galaxyMsg.class('message-top');
   galaxyStarted = true;
 }
@@ -289,14 +313,14 @@ function landing() {
   console.log("landing");
   galaxyMsg.remove();
   galaxyNextB.remove();
-  landingMsg = createElement('h1', "We are landing on Datatopia");
+  planetImg = createImg('img/half-planet.png');
+  planetImg.position(width * 0.125, landingMove);
+  planetImg.size(width * 0.75, height / 1.4);
   landingImg = createImg('img/spaceship-above.png');
   landingImg.position(width / 4, landingMove);
   landingImg.size(width / 2, height / 1.4);
-  planetImg = createImg('img/spaceship-above.png');
-  planetImg.position(width / 2, landingMove);
-  planetImg.size(width / 2, height / 1.4);
-  landingMsg.class('message');
+  landingMsg = createElement('h1', passenger2 + ": Look! We are landing on Datatopia");
+  landingMsg.class('message-top');
   landingNextB = createButton('next');
   landingNextB.class('continueButton-day');
   landingNextB.mousePressed(scenery);
@@ -319,23 +343,39 @@ function scenery() {
   landingStarted = false;
 
   landingImg.remove();
+  planetImg.remove();
   landingMsg.remove();
   landingNextB.remove();
 
-  sceneryMsg = createElement('h1', "scenery poems");
-  sceneryMsg.class('message');
-  sceneryNextB = createButton('next');
+  sceneryMsg = createElement('h1', passenger2 + ": Everything on Datatopia is made of words and sustained by new words from the tourists. Datatopia will not exist if no one visits it. Look, the scenery is especially striking at night.");
+  sceneryMsg.class('message-top');
+  sceneryNextB = createButton('next  →');
   sceneryNextB.class('continueButton-night');
   sceneryNextB.mousePressed(breathe1);
+
+  sceneryStarted = true;
 }
 
 function breathe1() {
+  mountainImg.remove();
+  riverImg.remove();
+  for (var i = 0; i < river.length; i++) {
+    for (var j = 0; j < windowWidth / 100 - 1; j++) {
+      river[i].waterList[j].remove();
+    }
+  }
+  for (var m = 0; m < windowWidth / 20; m++) {
+    for (var n = 0; n < (windowHeight * 0.75 - (windowHeight * 0.12 + windowWidth / 6)) / 20 - 1; n++) {
+      grassList[m][n].remove();
+    }
+  }
+  sceneryStarted = false;
   console.log("breathe1");
   sceneryMsg.remove();
   sceneryNextB.remove();
-  breathMsg = createElement('h1', "breathe1");
-  breathMsg.class('message');
-  breathNextB = createButton('next');
+  breathMsg = createElement('h1', passenger1 + ": Even the air is made of words! Maybe it shouldn't be called AIR, but we can breathe it!!");
+  breathMsg.class('message-center');
+  breathNextB = createButton('breathe');
   breathNextB.class('continueButton-night');
   breathNextB.mousePressed(breathe2);
 
@@ -347,9 +387,9 @@ function breathe2() {
   breathStarted = false;
   breathMsg.remove();
   breathNextB.remove();
-  breathMsg2 = createElement('h1', "breathe2");
-  breathMsg2.class('message');
-  breathNextB2 = createButton('next');
+  breathMsg2 = createElement('h1', passenger1 + ": Hmmm...");
+  breathMsg2.class('message-top');
+  breathNextB2 = createButton('next  →');
   breathNextB2.class('continueButton-night');
   breathNextB2.mousePressed(x);
 
@@ -389,27 +429,23 @@ function x2() {
 
 function streetLamp() {
   console.log("street lamp");
-  //sceneryMsg.remove();
   xNextB2.remove();
   lampStarted = true;
 
   road = createImg('img/road.png');
   road.position(0, 0);
   road.size(width, height);
-  lampMsg = createElement('h1', "street lamp");
-  lampMsg.class('message');
+  lampMsg = createElement('h1', passenger1 + ": Answer questions to light up the street lamps and walk in the dark. (click on each lamp light after answering the question.)");
+  lampMsg.class('message-top');
 }
 
 function force() {
   console.log("force");
   lampMsg.remove();
   lampNextB.remove();
-
-  //lampStarted = false;
   for (var i = 0; i < lights.length; i++) {
     lights[i].photon.remove();
     lights.splice(0, i);
-
     lightQList[i].remove();
     lightBList[i].remove();
     lightBList2[i].remove();
@@ -419,12 +455,8 @@ function force() {
   road.remove();
   endRoad.remove();
   lampStarted = false;
-
-  forceMsg = createElement('h1', "The force");
-  forceMsg.class('message');
-
-
-
+  forceMsg = createElement('h1', passenger2 + ": There's a deep hole at the end of the road. Gravity is distorted here. Try throwing some rocks into it.");
+  forceMsg.class('message-top');
   forceStarted = true;
   console.log(lights);
 }
@@ -435,28 +467,40 @@ function storyBox() {
   }
   forceMsg.remove();
   forceNextB.remove();
-  boxMsg = createElement('h1', "The box");
-  boxMsg.class('message-top');
-  boxImg = createImg('img/box.png');
-  boxImg.size(0.4*width, 0.3*width);
-  boxImg.position(0.3*width, 0.2*height);
-  boxPass = createElement('textarea','password');
-  boxPass.class('basic-input')
-  boxNextB = createButton('end');
-  boxNextB.class('basic-Button');
-
-  forceStarted = false;
   pitImg.remove();
   for (var i = 0; i < rocks.length; i++) {
     rocks[i].wordRock.remove();
   }
+  boxMsg = createElement('h1', passenger2 + ": Hey! This is what we really want to show you. Put in the one-digit passcode from the deep hole and open this box. (click on the box)");
+  boxMsg.class('message-top');
+  boxImg = createImg('img/box.png');
+  boxImg.size(0.4 * width, 0.4 * width);
+  boxImg.position(0.3 * width, 0.2 * height);
+  boxImg.mousePressed(function() {
+    boxPass = createElement('textarea', '');
+    boxPass.class('basic-input');
+    boxPass.size(100, 140);
+    boxPass.position(width / 2 - 50, height * 0.3);
+    boxPass.style('font-size', '10em');
+  })
+  boxNextB = createButton('open');
+  boxNextB.class('basic-Button');
+  boxNextB.mousePressed(function() {
+    if (boxPass.value() == '7') {
+      finalEnd();
+    }
+  });
+  forceStarted = false;
 }
 
 function finalEnd() {
   boxMsg.remove();
   boxNextB.remove();
+  boxPass.remove();
+  boxImg.remove();
+  //boxImg2 = createImg();
   endMsg = createElement('h1', "This is where you say goodbye to your companions in this journey.");
-  endMsg.class('message');
+  endMsg.class('message-top');
   endB = createButton('Write your story.');
   endB.class('continueButton-day');
 

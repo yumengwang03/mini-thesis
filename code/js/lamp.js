@@ -30,7 +30,7 @@ function lampSetup() {
   limit = 12;
   areaSize = height / 3;
   //backgroundVal = 0;
-  questions = ["how are you?", "what's your favorite color?", "who's your best friend?", "Cats or dogs?", "Do you like bananas?"];
+  questions = ["1. how are you?", "3. what's your favorite color?", "5. who's your best friend?", "2. Cats or dogs?", "4. Do you like bananas?"];
 }
 
 function lampDraw() {
@@ -41,8 +41,8 @@ function lampDraw() {
     // road = createImg('img/road.png');
     // road.position(0, 0);
     // road.size(width, height);
-    endRoad = createElement('h1', 'Mysterious force is at the end of the road');
-    endRoad.position(width / 2 - 300, 7 * height / 8);
+    // endRoad = createElement('h1', 'Mysterious force is at the end of the road');
+    // endRoad.position(width / 2 - 300, 7 * height / 8);
     for (var i = 0; i < 3; i++) {
       var lightB2 = createButton('');
       lightB2.position(width / 3 * i + width / 6.2, height / 3 - areaSize / 2.8);
@@ -53,7 +53,7 @@ function lampDraw() {
       area.position(width / 3 * i + width / 6 - areaSize / 3, height / 3 - areaSize / 1.6);
       area.size(areaSize / 2.5, areaSize);
 
-      var lightB = createButton('off');
+      var lightB = createButton(i + 1);
       lightB.position(width / 3 * i + width / 6.5, height / 3 - areaSize / 2.2);
       lightB.id = i;
       lightB.clicked = false;
@@ -79,7 +79,7 @@ function lampDraw() {
       area.position(width / 3 * i + 2 * width / 6 - areaSize / 3, 2 * height / 3 - areaSize / 2.6);
       area.size(areaSize / 2.5, areaSize);
 
-      var lightB = createButton('off');
+      var lightB = createButton(i + 1);
       lightB.position(width / 3 * i + 2 * width / 6.25, 2 * height / 3 - areaSize / 4.7);
       lightB.id = i + 3;
       lightB.clicked = false;
@@ -159,7 +159,7 @@ function lampDraw() {
       backgroundVal += 1.5;
       if (showRoadButton < 1 && backgroundVal >= 255) {
         backgroundVal = 255;
-        lampNextB = createButton('go to mysterious force');
+        lampNextB = createButton('go down the road');
         lampNextB.class('continueButton-day');
         lampNextB.mousePressed(force);
         showRoadButton++;

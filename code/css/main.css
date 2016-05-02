@@ -87,6 +87,7 @@ canvas {
 }
 
 .message-top {
+  margin-left: 20px;
   margin-right: 20%;
   color: #B3B3B3;
   text-align: left;

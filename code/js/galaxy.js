@@ -57,7 +57,7 @@ function galaxyDraw() {
     spaceship.style('font-family', 'monospace');
     spaceship.style('font-size', '1.4em');
     spaceship.style('font-weight', 'bold');
-    spaceship.style('color', 'navy');
+    spaceship.style('color', '#AC11C5');
 
     starRunOnce++;
     starStarted = true;
@@ -97,7 +97,7 @@ function Star(adj, xPos, yPos, mode, img) {
   this.adjStar.style('font-family', 'monospace');
   this.adjStar.style('font-size', '1.4em');
   this.adjStar.style('border', 'white');
-  this.adjStar.style('color', 'navy');
+  this.adjStar.style('color', '#AC11C5');
   this.adjStar.style('border-radius', '60px');
 
   this.display = function() {

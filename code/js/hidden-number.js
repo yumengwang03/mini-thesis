@@ -88,7 +88,7 @@ function numberDraw() {
       } else {
         rocks[i].fall(random(0, width - 2 * rockSize), random(0, height - 2 * rockSize), 0);
         if (showHiddenButton < 1) {
-          forceNextB = createButton('Go to the box');
+          forceNextB = createButton('keep going');
           forceNextB.class('continueButton-day');
           forceNextB.mousePressed(storyBox);
           showHiddenButton++;
@@ -117,7 +117,7 @@ function Rock(posX, posY, word) {
   this.wordRock.style('font-size', '1.2em');
   //this.wordRock.style('font-weight', 'bold');
   this.wordRock.style('border', 'white');
-  this.wordRock.style('color', '#11853F');
+  this.wordRock.style('color', '#0FE9CE');
   this.wordRock.style('border-radius', '20px');
 
   this.wordRock.mousePressed(changeMoved1);

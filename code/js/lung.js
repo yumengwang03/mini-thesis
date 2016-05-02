@@ -35,7 +35,7 @@ function lungDraw() {
   }
 
   if (lungStarted) {
-    lungImg.position(mouseX - lungSize * 0.6, mouseY);
+    lungImg.position(mouseX - lungSize * 0.6, mouseY + lungSize * 0.1);
     for (var i = 0; i < airList.length; i++) {
       //airList[i].display();
       airList[i].update();
