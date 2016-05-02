@@ -15,7 +15,7 @@ var grassTime = 0;
 
 function setup() {
   //createCanvas(windowWidth, windowHeight);
-  noCanvas();
+
   sceneryRunOnce = 0;
   poemStarted = false;
   skyLine = height / 4;
@@ -28,6 +28,7 @@ function setup() {
 function draw() {
 
   if (sceneryRunOnce < 1) {
+    noCanvas();
     mountainImg = createImg('img/mountain.png');
     mountainImg.size(windowWidth, windowWidth / 6);
     mountainImg.position(0, windowHeight * 0.15);
@@ -62,20 +63,36 @@ function draw() {
       river[i].update();
       //river[i].reset();
     }
-    for (var m = 0; m < 6; m++) {
-      for (var n = 0; n < 3; n++) {
-        if (millis() > grassTime + 1200) {
-            if (grassList[m][n].html() == grassLetters[0]) {
-              grassList[m][n].html(grassLetters[1]);
-            }
-          grassTime = millis();
-        }
-      }
-    }
+    // for (var m = 0; m < 6; m++) {
+    //   for (var n = 0; n < 3; n++) {
+    //     if (millis() > grassTime + 1200) {
+    //       if (grassList[m][n].html() == grassLetters[0]) {
+    //         grassList[m][n].html(grassLetters[1]);
+    //       }
+    //       grassTime = millis();
+    //     }
+    //   }
+    // }
 
 
 
   }
+}
+
+function mousePressed() {
+  riverImg.remove();
+  mountainImg.remove();
+  for (var i = 0; i < river.length; i++) {
+    for (var j = 0; j < windowWidth / 100 - 1; j++) {
+      river[i].waterList[j].remove();
+    }
+  }
+  for (var m = 0; m < windowWidth / 20; m++) {
+    for (var n = 0; n < (windowHeight * 0.75 - (windowHeight * 0.12 + windowWidth / 6)) / 20 - 1; n++) {
+      grassList[m][n].remove();
+    }
+  }
+
 }
 
 function Water(xPos, yPos) {

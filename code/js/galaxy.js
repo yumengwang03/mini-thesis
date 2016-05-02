@@ -11,8 +11,7 @@ var spaceship;
 var startTravel;
 var updatePos;
 var collect;
-var emotions = [];
-// var landingReady = false;
+
 
 
 function galaxySetup() {

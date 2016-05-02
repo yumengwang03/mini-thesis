@@ -53,7 +53,7 @@ function lampDraw() {
       area.position(width / 3 * i + width / 6 - areaSize / 3, height / 3 - areaSize / 1.6);
       area.size(areaSize / 2.5, areaSize);
 
-      var lightB = createButton(i + 1);
+      var lightB = createButton(2 * i + 1);
       lightB.position(width / 3 * i + width / 6.5, height / 3 - areaSize / 2.2);
       lightB.id = i;
       lightB.clicked = false;
@@ -79,7 +79,7 @@ function lampDraw() {
       area.position(width / 3 * i + 2 * width / 6 - areaSize / 3, 2 * height / 3 - areaSize / 2.6);
       area.size(areaSize / 2.5, areaSize);
 
-      var lightB = createButton(i + 1);
+      var lightB = createButton(2 * (i + 1));
       lightB.position(width / 3 * i + 2 * width / 6.25, 2 * height / 3 - areaSize / 4.7);
       lightB.id = i + 3;
       lightB.clicked = false;
@@ -186,6 +186,7 @@ function lightClicked() {
 
   if (getText != '') {
     //this.class('lightButton');
+    lampAnswers.push(getText);
     this.html(' on');
 
     lightBList2[this.id].class('lightButton');

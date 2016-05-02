@@ -41,6 +41,9 @@ io.sockets.on('connection',
       function(data) {
         var inputName = data.name;
         var inputHair = data.hair;
+        var inputSpaceA = data.spaceshipA;
+        var inputEmotions = data.emotions;
+        var inputLampA = data.lampA;
         //console.log(inputName);
 
           // write the input to name.JSON
@@ -50,7 +53,10 @@ io.sockets.on('connection',
             data.unshift({
               id: new Date().getTime(),
               name: inputName,
-              hair: inputHair
+              hair: inputHair,
+              spaceA: inputSpaceA,
+              emotions: inputEmotions,
+              lampA: inputLampA
             });
             // update/rewrite the file
             fs.writeFile(JSONpath + '/name.JSON', JSON.stringify(data), function(err) {

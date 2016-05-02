@@ -2,6 +2,10 @@
 var name;
 var hairChoice;
 var spaceshipAnswer;
+var emotions = [];
+var lampAnswers = [];
+
+var allData = [];
 
 // socket
 var socket;
@@ -26,7 +30,7 @@ var hairMsg2;
 var hairNextB;
 // 2nd traveller - description
 var eyeMsg;
-var eyeSlider;
+// var eyeSlider;
 var eyeNextB;
 // boarding spaceship
 var boardingStarted = false;
@@ -105,7 +109,7 @@ function setup() {
   landingMove = height;
   planetMove = -height / 1.4;
   planetSpeed = 1;
-  //socket = io.connect('http://localhost:8080');
+  socket = io.connect('http://localhost:8080');
 
   startPage();
   scenerySetup();
@@ -189,7 +193,6 @@ function welcomePage() {
   welcomeNextB.mousePressed(function() {
     traveller1();
   });
-  theEnd = true;
 }
 
 // to determine the first character to travel with
@@ -260,7 +263,7 @@ function traveller2() {
   hairNextB.remove();
   eyeMsg = createElement('h1', 'Her name is ' + passenger2 + '. She can freeze time and people and stare at them as long as she wants.');
   eyeMsg.class('message-center');
-  eyeSlider = createSlider(0, 100, 20);
+  //eyeSlider = createSlider(0, 100, 20);
   eyeNextB = createButton('Next  →');
   eyeNextB.class('continueButton-day');
   eyeNextB.mousePressed(boarding);
@@ -269,19 +272,20 @@ function traveller2() {
 function boarding() {
   console.log("boarding");
   eyeMsg.remove();
-  eyeSlider.remove();
+  //eyeSlider.remove();
   eyeNextB.remove();
-  spaceshipMsg = createElement('h1', 'Welcome on board, ' + name + ', ' + passenger1 + ', ' + passenger2);
+  spaceshipMsg = createElement('h1', 'We are ready now. Welcome on board, ' + name + ', ' + passenger1 + ' and ' + passenger2 + '!');
   spaceshipMsg.class('message-top');
   spaceshipImg = createImg('img/spaceship.jpg');
   spaceshipImg.size(width * 0.5, width * 0.5 * 0.86);
   spaceshipImg.position(width * 0.4, boardingPos);
-  spaceshipQ = createElement('h2', 'Boarding pass: what is your favorite fruit?');
+  spaceshipQ = createElement('h2', 'Boarding pass question: what is your favorite fruit?');
   spaceshipQ.style('color', '#B3B3B3');
   spaceshipQ.position(0.1 * width, 0.2 * height);
   spaceshipA = createElement('textarea', '');
   spaceshipA.class('basic-input');
-  spaceshipA.size(width / 6, height / 10);
+  spaceshipA.style('font-size', '1.6em');
+  spaceshipA.size(width / 4, height / 4);
   spaceshipA.position(0.1 * width, 0.3 * height);
 
   spaceshipNextB = createButton("Take off now");
@@ -347,7 +351,7 @@ function scenery() {
   landingMsg.remove();
   landingNextB.remove();
 
-  sceneryMsg = createElement('h1', passenger2 + ": Everything on Datatopia is made of words and sustained by new words from the tourists. Datatopia will not exist if no one visits it. Look, the scenery is especially striking at night.");
+  sceneryMsg = createElement('h1', passenger2 + ": Everything on Datatopia is made of words and sustained by new words from the tourists. Datatopia will not exist if no one comes to visit. Look, the scenery is especially striking at night.");
   sceneryMsg.class('message-top');
   sceneryNextB = createButton('next  →');
   sceneryNextB.class('continueButton-night');
@@ -453,7 +457,7 @@ function force() {
     questionsP[i].remove();
   }
   road.remove();
-  endRoad.remove();
+  // endRoad.remove();
   lampStarted = false;
   forceMsg = createElement('h1', passenger2 + ": There's a deep hole at the end of the road. Gravity is distorted here. Try throwing some rocks into it.");
   forceMsg.class('message-top');
@@ -471,23 +475,25 @@ function storyBox() {
   for (var i = 0; i < rocks.length; i++) {
     rocks[i].wordRock.remove();
   }
-  boxMsg = createElement('h1', passenger2 + ": Hey! This is what we really want to show you. Put in the one-digit passcode from the deep hole and open this box. (click on the box)");
+  boxMsg = createElement('h1', passenger2 + ": Hey " + name + "! This is what we really want to show you. Put in the one-digit passcode from the deep hole and open this box. (click on the box)");
   boxMsg.class('message-top');
   boxImg = createImg('img/box.png');
   boxImg.size(0.4 * width, 0.4 * width);
-  boxImg.position(0.3 * width, 0.2 * height);
+  boxImg.position(0.3 * width, 0.25 * height);
   boxImg.mousePressed(function() {
     boxPass = createElement('textarea', '');
     boxPass.class('basic-input');
     boxPass.size(100, 140);
     boxPass.position(width / 2 - 50, height * 0.3);
     boxPass.style('font-size', '10em');
+    boxPass.style('overflow', 'hidden');
   })
   boxNextB = createButton('open');
-  boxNextB.class('basic-Button');
+  boxNextB.class('continueButton-day');
   boxNextB.mousePressed(function() {
     if (boxPass.value() == '7') {
       finalEnd();
+      theEnd = true;
     }
   });
   forceStarted = false;
@@ -499,12 +505,12 @@ function finalEnd() {
   boxPass.remove();
   boxImg.remove();
   //boxImg2 = createImg();
-  endMsg = createElement('h1', "This is where you say goodbye to your companions in this journey.");
-  endMsg.class('message-top');
-  endB = createButton('Write your story.');
-  endB.class('continueButton-day');
-
-  //endB.mousePressed(sendToServer);
+  endMsg = createElement('h1', "??: We are glad you found this special box, where we keep a record of every visitor's experience on Datatopia. Your experience is always more than you can imagine.");
+  endMsg.class('message-center');
+  endB = createButton('view your record');
+  endB.class('basic-Button');
+  endB.position(width / 2 - 97, height * 0.6);
+  endB.mousePressed(sendToServer);
 
 }
 
@@ -512,12 +518,14 @@ function sendToServer() {
   if (theEnd) {
     socket.emit('toServer', {
       name: name,
-      hair: hairChoice
+      hair: hairChoice,
+      spaceshipA: spaceshipAnswer,
+      emotions: emotions,
+      lampA: lampAnswers
     });
     console.log("sent to server");
     theEnd = false;
   }
-
 }
 
 // function transition() {
