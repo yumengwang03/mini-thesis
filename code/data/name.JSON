@@ -1,1 +1,12 @@
-[{"id":1462171853956,"name":"Karen","hair":3,"spaceA":"banana","emotions":["banana","complementary","texture","innovative","tangible"],"lampA":["great","cats","red","yes","monica"]},{"id":1461167874599,"name":"yumeng","hair":3}]
+[{
+    "id": 1462171853956,
+    "name": "Karen",
+    "hair": 3,
+    "spaceA": "banana",
+    "emotions": ["banana", "complementary", "texture", "innovative", "tangible"],
+    "lampA": ["great", "cats", "red", "yes", "monica"]
+}, {
+    "id": 1461167874599,
+    "name": "Yumeng",
+    "hair": 3
+}]

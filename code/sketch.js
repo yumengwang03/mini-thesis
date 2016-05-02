@@ -96,8 +96,8 @@ var fadingVal;
 var all; // body element
 
 // past travellers
-var passenger1 = "Gentry";
-var passenger2 = "Monica";
+var passenger1;
+var passenger2;
 
 
 function setup() {
@@ -118,6 +118,13 @@ function setup() {
   galaxySetup();
   numberSetup();
   lampSetup();
+
+  socket.on('toClient',
+    function(data) {
+      console.log(data);
+      passenger1 = data.traveller1;
+      passenger2 = data.traveller2;
+    });
 
 }
 
@@ -279,7 +286,7 @@ function boarding() {
   spaceshipImg = createImg('img/spaceship.jpg');
   spaceshipImg.size(width * 0.5, width * 0.5 * 0.86);
   spaceshipImg.position(width * 0.4, boardingPos);
-  spaceshipQ = createElement('h2', 'Boarding pass question: what is your favorite fruit?');
+  spaceshipQ = createElement('h2', 'Boarding pass question: Do you use ad blockers?');
   spaceshipQ.style('color', '#B3B3B3');
   spaceshipQ.position(0.1 * width, 0.2 * height);
   spaceshipA = createElement('textarea', '');
