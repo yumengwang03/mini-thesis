@@ -11,7 +11,7 @@ var spaceship;
 var startTravel;
 var updatePos;
 var collect;
-
+var skyBackground;
 
 
 function galaxySetup() {
@@ -20,7 +20,7 @@ function galaxySetup() {
   collect = 0;
   starStarted = false;
   starSize = height / 5.5;
-  starWords = ["pleasing", "complementary", "transparent", "keyboard", "banana", "texture", "tangible", "blue", "knitting", "pencil", "innovative", "carbon"];
+  starWords = ["pleased", "anxious", "annoyed", "confused", "outrageous", "furious", "delusional", "melancholic", "hopeless", "optimistic", "bitter", "delightful"];
   starImg = ['url(img/planet1.png) no-repeat', 'url(img/planet2.png) no-repeat', 'url(img/planet3.png) no-repeat', 'url(img/planet4.png) no-repeat', 'url(img/planet5.png) no-repeat', 'url(img/planet6.png) no-repeat', 'url(img/planet7.png) no-repeat', 'url(img/planet8.png) no-repeat', 'url(img/planet9.png) no-repeat', 'url(img/planet10.png) no-repeat', 'url(img/planet11.png) no-repeat', 'url(img/planet12.png) no-repeat'];
   startTravel = false;
 }
@@ -28,7 +28,9 @@ function galaxySetup() {
 function galaxyDraw() {
   if (starRunOnce < 1) {
     //background(220, 235, 255);
-
+    skyBackground = createImg('img/sky.png');
+    skyBackground.size(windowWidth, windowHeight);
+    skyBackground.position(0, 0);
     var r = 3;
     var c = 4;
     for (var i = 0; i < starWords.length; i++) {

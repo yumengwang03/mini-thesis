@@ -332,7 +332,7 @@ function landing() {
   landingImg.size(width / 2, height / 1.4);
   landingMsg = createElement('h1', passenger2 + ": Look! We are landing on Datatopia");
   landingMsg.class('message-top');
-  landingNextB = createButton('next');
+  landingNextB = createButton('landing');
   landingNextB.class('continueButton-day');
   landingNextB.mousePressed(scenery);
 
@@ -343,6 +343,7 @@ function landing() {
   }
 
   landingStarted = true;
+  
 }
 
 function scenery() {
@@ -352,7 +353,7 @@ function scenery() {
   all.style('background-color', 'rgb(' + backgroundVal + ',' + backgroundVal + ',' + backgroundVal + ')');
 
   landingStarted = false;
-
+  skyBackground.remove();
   landingImg.remove();
   planetImg.remove();
   landingMsg.remove();
@@ -517,7 +518,11 @@ function finalEnd() {
   endB = createButton('view your record');
   endB.class('basic-Button');
   endB.position(width / 2 - 97, height * 0.6);
-  endB.mousePressed(sendToServer);
+  endB.mousePressed(function() {
+    var waitMsg = createElement('h1', 'Please wait for a moment...');
+    waitMsg.class('message-center');
+    sendToServer();
+  });
 
 }
 
