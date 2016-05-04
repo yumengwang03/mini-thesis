@@ -30,7 +30,7 @@ function lampSetup() {
   limit = 12;
   areaSize = height / 3;
   //backgroundVal = 0;
-  questions = ["1. how are you?", "3. what's your favorite color?", "5. What did you eat this morning?", "2. Cats or dogs?", "4. Do you like bananas?"];
+  questions = ["1. Are you an active user of social media?", "3. Do you think your information is safe online?", "5. Have you thought about what your meta data tell about you?", "2. What do you not want to share?", "4. Do you click on targeted ads?"];
 }
 
 function lampDraw() {
@@ -66,7 +66,7 @@ function lampDraw() {
       lightQList.push(lightIn);
 
       var question = createP(questions[i]);
-      question.position(width / 3 * i + width / 5.5, height / 2);
+      question.position(width / 3 * i + width / 5.5, height * 0.4);
       questionsP.push(question);
     }
     for (var i = 0; i < 2; i++) {
@@ -92,7 +92,7 @@ function lampDraw() {
       lightQList.push(lightIn);
 
       var question = createP(questions[i + 3]);
-      question.position(width / 3 * i + 2 * width / 5.5, height / 2);
+      question.position(width / 3 * i + 2 * width / 5.5, height * 0.4);
       questionsP.push(question);
     }
     console.log(questionsP);
