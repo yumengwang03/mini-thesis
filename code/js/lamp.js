@@ -30,7 +30,7 @@ function lampSetup() {
   limit = 12;
   areaSize = height / 3;
   //backgroundVal = 0;
-  questions = ["1. how are you?", "3. what's your favorite color?", "5. who's your best friend?", "2. Cats or dogs?", "4. Do you like bananas?"];
+  questions = ["1. how are you?", "3. what's your favorite color?", "5. What did you eat this morning?", "2. Cats or dogs?", "4. Do you like bananas?"];
 }
 
 function lampDraw() {

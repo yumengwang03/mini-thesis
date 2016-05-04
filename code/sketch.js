@@ -176,6 +176,7 @@ function startPage() {
   username = select('#username');
   username.size(200, 30);
   username.position(width / 2 - 100, height * 0.65);
+  username.style('overflow', 'hidden');
   startB = createButton('Sign up');
   startB.class('basic-Button');
   startB.position(width / 2 - 97, height * 0.72);
@@ -343,7 +344,7 @@ function landing() {
   }
 
   landingStarted = true;
-  
+
 }
 
 function scenery() {
@@ -403,7 +404,7 @@ function breathe2() {
   breathMsg2.class('message-top');
   breathNextB2 = createButton('next  →');
   breathNextB2.class('continueButton-night');
-  breathNextB2.mousePressed(x);
+  breathNextB2.mousePressed(streetLamp);
 
   breathStarted2 = true;
 }
@@ -418,7 +419,7 @@ function x() {
     airList[i].air.remove();
   }
   breathMsg2.remove();
-  breathNextB2.remove();
+  // breathNextB2.remove();
 
   //sceneryMsg2 = createElement('h1', "We are landing on Datatopia");
   //sceneryMsg2.class('message');
@@ -440,8 +441,16 @@ function x2() {
 }
 
 function streetLamp() {
+  breathStarted2 = false;
+  lungImg.remove();
+  for (var i = 0; i < airList.length; i++) {
+    airList[i].air.remove();
+  }
+  breathMsg2.remove();
+  breathNextB2.remove();
+
   console.log("street lamp");
-  xNextB2.remove();
+  // xNextB2.remove();
   lampStarted = true;
 
   road = createImg('img/road.png');
@@ -450,6 +459,31 @@ function streetLamp() {
   lampMsg = createElement('h1', passenger1 + ": Answer questions to light up the street lamps and walk in the dark. (click on each lamp light after answering the question.)");
   lampMsg.class('message-top');
 }
+
+// function force() {
+//   console.log("force");
+//   lampMsg.remove();
+//   lampNextB.remove();
+
+//   console.log(lights[lights.length-1].photon);
+//   for (var i = lights.length-1; i >= 0; i--) {
+//     // console.log(lights[i].photon);
+//     lights[i].photon.remove();
+//     // lights.splice(0, i);
+//     lightQList[i].remove();
+//     lightBList[i].remove();
+//     lightBList2[i].remove();
+//     lightArea[i].remove();
+//     questionsP[i].remove();
+//   }
+//   road.remove();
+//   // endRoad.remove();
+//   lampStarted = false;
+//   forceMsg = createElement('h1', passenger2 + ": There's a deep hole at the end of the road. Gravity is distorted here. Try throwing some rocks into it.");
+//   forceMsg.class('message-top');
+//   forceStarted = true;
+//   console.log(lights);
+// }
 
 function force() {
   console.log("force");
@@ -467,7 +501,15 @@ function force() {
   road.remove();
   // endRoad.remove();
   lampStarted = false;
-  forceMsg = createElement('h1', passenger2 + ": There's a deep hole at the end of the road. Gravity is distorted here. Try throwing some rocks into it.");
+  
+  // fix this later
+  // var whiteBackground = createDiv('');
+  // whiteBackground.size(windowWidth, windowHeight);
+  // whiteBackground.position(0, 0);
+  // whiteBackground.style('background-color', 'white');
+  
+  forceMsg = createElement('h1', passenger2 + ": There's a deep hole at the end of the road. Gravity is distorted here. Try throwing some rocks into the hole.");
+  
   forceMsg.class('message-top');
   forceStarted = true;
   console.log(lights);
@@ -499,10 +541,19 @@ function storyBox() {
   boxNextB = createButton('open');
   boxNextB.class('continueButton-day');
   boxNextB.mousePressed(function() {
-    if (boxPass.value() == '7') {
+    console.log(boxPass.value());
+    // if (boxPass.value().length >= 1) {
+    //   boxPass.value().length = 1;
+
+    // if (boxPass.value() == '7') {
+    //   finalEnd();s
+    //   theEnd = true;
+    // }
+    if (/[7]/g.test(boxPass.value())) {
       finalEnd();
       theEnd = true;
     }
+    //}
   });
   forceStarted = false;
 }

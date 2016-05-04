@@ -9,6 +9,7 @@ var rockSize;
 var pitImg;
 var rockMsg = [];
 var showHiddenButton = 0;
+var rockChoices = [];
 
 function numberSetup() {
   //noCanvas();
@@ -47,7 +48,6 @@ function changeMoved2() {
   this.moved = false;
 };
 
-
 function numberDraw() {
   // imageMode(CENTER);
   // image(pitImg, width / 2 - 10, height / 2, pitSize * 2.5, pitSize * 1.8);
@@ -56,6 +56,9 @@ function numberDraw() {
     pitImg = createImg('img/purple.png');
     pitImg.position(width / 2 - pitSize * 2.5 / 2, 0);
     pitImg.size(pitSize * 2.5, height);
+    // forceMsg = createElement('h1', passenger2 + ": There's a deep hole at the end of the road. Gravity is distorted here. Try throwing some rocks into the hole.");
+    // forceMsg.class('message-top');
+    
     var r = 4;
     var c = 5;
     for (var i = 0; i < words.length; i++) {

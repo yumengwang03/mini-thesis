@@ -13,9 +13,8 @@ var printer = require("printer/lib"),
 var JSONpath = 'data';
 // var JSONfile = 'input-data.JSON';
 
-var selectedText = [];
-var dataKeys = [];
-var inputKeys;
+var startWriting = false;
+
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -64,7 +63,9 @@ io.sockets.on('connection',
                             console.log(err);
                         } else {
                             console.log("File saved!");
-                            textSample();
+                            // textSample();
+                            // var test = getPreviousInput();
+                            // console.log(test);
                         }
                     });
                 });
@@ -87,27 +88,46 @@ io.sockets.on('connection',
     }
 );
 
+function getPreviousInput(filepath, encoding){
+  var previousInput = [];
+  var previousSize = 3;
+    if (typeof (encoding) == 'undefined'){
+        encoding = 'utf8';
+    }
+    var file = fs.readFileSync(filepath, encoding);
+    var data = JSON.parse(file);
+    for (var i = 0; i < previousSize; i++) {
+        previousInput.push(data[i]);
+    }
+    return previousInput;
+}
 
+var previousJson = getPreviousInput(JSONpath + '/name.JSON');
+console.log(previousJson);
 
-function getTexts() {
-    var selected = [];
-    var selectedSize = 4;
-    fs.readFile(JSONpath + '/name.JSON', 'utf8', function(err, data) {
-        if (err) {
-            console.log(err);
+// concordance
+function textAnalyze(text) {
+    var concordance = {};
+    var keys = [];
+    var tokens = text.split(/\W+/);
+
+    for (var i = 0; i < tokens.length; i++) {
+        var word = tokens[i];
+        if (concordance[word] === undefined) {
+            concordance[word] = 1;
+            keys.push(word);
         } else {
-            data = JSON.parse(data);
-            // for (var i = 0; i < selectedSize; i++) {
-            //   if (option == 0) {
-            //     selected[i] = data[i].TwitterUser;
-            //   } else if (option == 1) {
-            //     selected[i] = data[i].TextInput;
-            //   }
-            // }
-            console.log(selected);
+            concordance[word]++;
         }
+    }
+    keys.sort(function(a, b) {
+        return (concordance[b] - concordance[a]);
     });
-    return selected;
+    return {
+        keys: keys,
+        concordance: concordance,
+        tokens: tokens
+    };
 }
 
 // process the text
@@ -165,29 +185,4 @@ function sendToPrinter() {
             }
         });
     }
-}
-
-// concordance
-function textAnalyze(text) {
-    var concordance = {};
-    var keys = [];
-    var tokens = text.split(/\W+/);
-
-    for (var i = 0; i < tokens.length; i++) {
-        var word = tokens[i];
-        if (concordance[word] === undefined) {
-            concordance[word] = 1;
-            keys.push(word);
-        } else {
-            concordance[word]++;
-        }
-    }
-    keys.sort(function(a, b) {
-        return (concordance[b] - concordance[a]);
-    });
-    return {
-        keys: keys,
-        concordance: concordance,
-        tokens: tokens
-    };
 }

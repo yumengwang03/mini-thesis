@@ -1,4 +1,81 @@
 [{
+    "id": 1462330594430,
+    "name": "Kim & Marco the bitch",
+    "hair": 3,
+    "spaceA": "Of course!",
+    "emotions": ["pleased", "bitter", "anxious", "hopeless", "optimistic"],
+    "lampA": ["Stressed the fucked out", "DOGS CATS SUCK", "PINK", "Its ok", "Poop"]
+}, {
+    "id": 1462255292484,
+    "name": "Fame",
+    "hair": 3,
+    "spaceA": "Yes",
+    "emotions": ["hopeless", "annoyed", "anxious", "confused", "bitter"],
+    "lampA": ["gray", "Good", "Cat", "hmm", "nothing"]
+}, {
+    "id": 1462225105043,
+    "name": "Sean",
+    "hair": 3,
+    "spaceA": "NO",
+    "emotions": ["optimistic", "confused", "bitter", "anxious", "hopeless"],
+    "lampA": ["good", "dogs", "green", "no", "nothing"]
+}, {
+    "id": 1462215383185,
+    "name": "Bryan",
+    "hair": 2,
+    "spaceA": "No",
+    "emotions": ["bitter", "pleased", "annoyed", "delusional", "outrageous"],
+    "lampA": ["ok", "dogs", "pizza", "yes", "coffee"]
+}, {
+    "id": 1462213314320,
+    "name": "Michael",
+    "hair": 1,
+    "spaceA": "yes",
+    "emotions": ["optimistic", "delusional", "bitter", "annoyed", "furious"],
+    "lampA": ["my comput", "gold", "maybee", "cats", "good"]
+}, {
+    "id": 1462213054145,
+    "name": "cameron",
+    "hair": 3,
+    "spaceA": "hell no",
+    "emotions": ["bitter", "optimistic", "pleased", "outrageous", "anxious"],
+    "lampA": ["my mom\n", "blue", "great", "great", "blue", "yes", "dogs", "yes", "yes"]
+}, {
+    "id": 1462210185911,
+    "name": "Alonso",
+    "hair": 2,
+    "spaceA": "yes",
+    "emotions": ["anxious", "delusional", "bitter", "confused", "melancholic"],
+    "lampA": ["dfsdfaes", "efsef", "sfdsfs", "adfsdfs", "great"]
+}, {
+    "id": 1462210012072,
+    "name": "Kate",
+    "hair": 1,
+    "spaceA": "no",
+    "emotions": ["outrageous", "optimistic", "bitter", "melancholic", "confused"],
+    "lampA": ["adf", "sdfdsfasdf", "adfdsf", "dsefe", "efewfewfwe"]
+}, {
+    "id": 1462209904452,
+    "name": "Michael",
+    "hair": 2,
+    "spaceA": "Yes",
+    "emotions": ["pleased", "optimistic", "anxious", "bitter", "delightful"],
+    "lampA": ["adfsdfd", "dfsd", "adfasdfsd", "cats", "great"]
+}, {
+    "id": 1462207382846,
+    "name": "Marco",
+    "hair": 2,
+    "spaceA": "yes",
+    "emotions": ["pleased", "anxious", "optimistic", "bitter", "delightful"],
+    "lampA": ["rrerreg", "asefes", "afsefaw", "aedsfae", "gadsf"]
+}, {
+    "id": 1462207197528,
+    "name": "Gentry",
+    "hair": 3,
+    "spaceA": "yes",
+    "emotions": ["outrageous", "anxious", "optimistic", "bitter", "annoyed"],
+    "lampA": ["god", "cats", "the rainbow", "yes", "chris"]
+}, {
     "id": 1462171853956,
     "name": "Karen",
     "hair": 3,
