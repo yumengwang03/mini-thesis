@@ -13,10 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "corpora-project": "^0.1.2",
     "express": "^4.13.4",
     "pdfkit": "^0.7.2",
     "printer": "^0.2.1",
     "rita": "^1.1.37",
-    "socket.io": "^1.4.5"
+    "socket.io": "^1.4.5",
+    "yamljs": "^0.2.7"
   }
 }
