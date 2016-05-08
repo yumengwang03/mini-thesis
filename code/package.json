@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "concept-net": "^0.3.0",
     "corpora-project": "^0.1.2",
     "express": "^4.13.4",
     "pdfkit": "^0.7.2",

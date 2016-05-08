@@ -19,7 +19,6 @@ function getVerbs(tense) {
 }
 var verbs_past = getVerbs("past");
 var verbs_ing = getVerbs("ing");
-
 var adjs = corpora.getFile('words', 'adjs').adjs;
 var advs = corpora.getFile('words', 'adverbs').adverbs;
 
@@ -30,33 +29,25 @@ var fruits = corpora.getFile('foods', 'fruits');
 var teas = corpora.getFile('foods', 'tea');
 var vegetables = corpora.getFile('foods', 'vegetables');
 
+var ConceptNet = require( 'concept-net' );
+var conceptNet = ConceptNet();
+
+var testWord ='data';
+conceptNet.association( '/list/en/' + testWord, {
+	limit: 10
+	//filter: '/c/en/donut'
+}, function onDone( err, result ){
+	// insert code here
+  console.log(result);
+})
+
+
 var rita = require('rita');
-// var r = rita.RiTa;
-// var grammar = rita.RiGrammar;
-// var rs = rita.RiString("The elephant took a bite!");
-// //console.log(rs.features());
-//
-// // var grammar, yaml;
-//
-// var test = rs.analyze();
-// //console.log(test);
-//
-// var apple = r.getPosTags(rs);
-// console.log(apple);
-
-// var APIKEY = '';
-// var Wordnik = require('wordnik-bb').init(APIKEY);
-// var word = new Wordnik.Word({word: 'king', params:{includeSuggestions:true}});
-// word.getEverything()
-//  .then( function() {
-//     console.log("A WHOLE lot of data in a Word model: ", word);
-//   });
-
 var cfg = {
     "<start>": "<np> <vp>. | <np> <vp>, <clause1>. | <clause1>, <np> <vp>.",
     "<np>": "<det> <n>[3] | <det> <adj> <n>[2] | <det> <adv> <adj> <n>",
     "<vp>": "<v> | <v> <np>[3] | <adv> <v> | <adv> <v> <np>[2]",
-    "<det>": "a | the[4]",
+    "<det>": "a | the[4] | his | her | its",
     // <v>
     // <v_ing>
     // <n>
@@ -65,7 +56,6 @@ var cfg = {
     "<location>": "in | on | at | in front of | before | after | above | below | through",
     "<clause1>": "<v_ing> <np> | <v_ing> <location> <np> | <v> <np> | <v> <location> <np>"
 }
-
 var grammar = rita.RiGrammar(cfg);
 
 function getNonTerminals(pos) {
@@ -89,13 +79,14 @@ grammar.addRule("<adj>", data_adj, 1);
 grammar.addRule("<adv>", data_adv, 1);
 
 //console.log(grammar.hasRule("<6>"));
-
-//console.log(grammar);
-//grammar.loadFrom(grammarJSON);
-// grammar.loadFrom('test.json');
-
 //console.log(grammar.ready());
 
-var result = grammar.expand();
-// var result0 = result.split("%");
-console.log(result);
+var result = [];
+for (var i = 0; i < 10; i++) {
+  var oneSentence = grammar.expand();
+  var rs = rita.RiString(oneSentence);
+  oneSentence0 = rs._text.replace(rs._text.charAt(0),rs._text.charAt(0).toUpperCase());
+  result.push(oneSentence0);
+}
+var finalResult = result.join(" ");
+//console.log(finalResult);
