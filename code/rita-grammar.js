@@ -1,62 +1,97 @@
- var rita = require('rita');
- // var r = rita.RiTa;
- // var grammar = rita.RiGrammar;
- // var rs = rita.RiString("The elephant took a bite!");
- // //console.log(rs.features());
- //
- // // var grammar, yaml;
- //
- // var test = rs.analyze();
- // //console.log(test);
- //
- // var apple = r.getPosTags(rs);
- // console.log(apple);
- //
- //
- // var grammar = 	addRule('testGrammar', 'simple', 0.8);
+var corpora = require('corpora-project');
 
+// basics
+var nouns = corpora.getFile('words', 'nouns').nouns;
 
-// var nativeObject = YAML.load('test.yaml');
-//YAML = require('yamljs');
+function getVerbs() {
+    var verbList = corpora.getFile('words', 'verbs').verbs;
+    var verbsPast = [];
+    for (var i = 0; i < verbList.length; i++) {
+        verbsPast.push(verbList[i].past);
+    }
+    return verbsPast;
+}
+var verbs = getVerbs();
 
- // parse YAML string
+var adjs = corpora.getFile('words', 'adjs').adjs;
+var advs = corpora.getFile('words', 'adverbs').adverbs;
 
- var grammarJSON = {
-   "<start>": "<5-line> % <7-line> % <5-line>",
-   "<5-line>": "<1> <4> |<1> <3> <1> |<1> <1> <3> | <1> <2> <2> | <1> <2> <1> <1> | <1> <1> <2> <1> | <1> <1> <1> <2> | <1> <1> <1> <1> <1> | <2> <3> | <2> <2> <1> | <2> <1> <2> | <2> <1> <1> <1> | <3> <2> | <3> <1> <1> | <4> <1> | <5>",
-   "<7-line>": "<1> <1> <5-line> | <2> <5-line> | <5-line> <1> <1> | <5-line> <2>",
-   "<1>": "red | white | black | sky | dawns | breaks | falls | leaf | rain | pool | my | your | sun | clouds | blue | green | night | day | dawn | dusk | birds | fly | grass | tree | branch | through | hell | zen | smile | gray | wave | sea | through | sound | mind | smoke | cranes | fish",
-   "<2>": "drifting | purple | mountains | skyline | city | faces | toward | empty | buddhist | temple | japan | under | ocean | thinking | zooming | rushing | over | rice field | rising | falling | sparkling | snowflake",
-   "<3>": "sunrises | pheasant farms | people farms | samurai | juniper | fishing boats | far away | kimonos | evenings | peasant rain | sad snow fall",
-   "<4>": "aluminum | yakitori | the east village | west of the sun |  chrysanthemums | cherry blossoms",
-   "<5>": "resolutional | non-elemental | rolling foothills rise | toward mountains higher | out over this country | in the springtime again"
- }
+// more
+var arts = corpora.getFile('art', 'isms');
+var webColors = corpora.getFile('colors', 'web_colors');
+var fruits = corpora.getFile('foods', 'fruits');
+var teas = corpora.getFile('foods', 'tea');
+var vegetables = corpora.getFile('foods', 'vegetables');
 
-
-
+var rita = require('rita');
+// var r = rita.RiTa;
+// var grammar = rita.RiGrammar;
+// var rs = rita.RiString("The elephant took a bite!");
+// //console.log(rs.features());
 //
-// var rg = new RiGrammar(sentenceGrammarJSON);
+// // var grammar, yaml;
+//
+// var test = rs.analyze();
+// //console.log(test);
+//
+// var apple = r.getPosTags(rs);
+// console.log(apple);
 
-// var grammar;
-grammar = rita.RiGrammar('http://rednoise.org/rita/examples/dom/HaikuGrammar/#source2');
+// var APIKEY = 'a644d55cb27d36059d70e0deac5021b42eb12486bc0b530c8';
+// var Wordnik = require('wordnik-bb').init(APIKEY);
+// var word = new Wordnik.Word({word: 'king', params:{includeSuggestions:true}});
+// word.getEverything()
+//  .then( function() {
+//     console.log("A WHOLE lot of data in a Word model: ", word);
+//   });
+
+
+
+//console.log(grammarJSON);
+
+var cfg = {
+    "<start>": "<np> <vp>",
+    "<np>": "<det> <n> | <det> <adj> <n> | <det> <adv> <adj> <n>",
+    "<vp>": "<v> | <v> <np>[2] | <adv> <v> | <adv> <v> <np>",
+    "<det>": "a | the"
+    // <v>
+    // <n>
+    // <adj>
+    // <adv>
+}
+
+
+var grammar = rita.RiGrammar(cfg);
+
+// console.log(grammar["<start>"]);
+var testData = "Yumeng | Chuck | Fame | Umi";
+
+
+// console.log(nouns.nouns[10]);
+
+function getNonTerminals(pos) {
+    var nonTerminals;
+    for (var i = 0; i < pos.length; i++) {
+        nonTerminals += pos[i] + " | ";
+    }
+    return nonTerminals;
+}
+
+var data_noun = getNonTerminals(nouns);
+var data_verb = getNonTerminals(verbs);
+//console.log(data_verb);
+
+grammar.addRule("<n>", data_noun, 1);
+grammar.addRule("<v>", data_verb, 1);
+
+//console.log(grammar.hasRule("<6>"));
+
 //console.log(grammar);
 //grammar.loadFrom(grammarJSON);
 // grammar.loadFrom('test.json');
- console.log(grammar.ready());
 
-
-
+//console.log(grammar.ready());
 
 var result = grammar.expand();
-var haiku = result.split("%");
-console.log(haiku);
-
-//grammar.loadFrom("<start>: [ <rule1>, <rule2>, <rule3> ] <rule2>: [ terminal1, terminal2, <rule1> ]");
- //RiGrammar.expandFrom('<start>');
-
-
- // var test = yaml.load('test.yaml')
- // var grammarLoaded =grammar.load(test);
- // var result = grammarLoaded.expand();
- // var haiku = result.split("%");
- // console.log(result);
+// var result0 = result.split("%");
+console.log(result);
