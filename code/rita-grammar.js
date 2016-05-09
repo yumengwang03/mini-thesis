@@ -29,17 +29,38 @@ var fruits = corpora.getFile('foods', 'fruits');
 var teas = corpora.getFile('foods', 'tea');
 var vegetables = corpora.getFile('foods', 'vegetables');
 
-var ConceptNet = require( 'concept-net' );
+var ConceptNet = require('concept-net');
 var conceptNet = ConceptNet();
 
-var testWord ='data';
-conceptNet.association( '/list/en/' + testWord, {
-	limit: 10
-	//filter: '/c/en/donut'
-}, function onDone( err, result ){
-	// insert code here
-  console.log(result);
+var testWord = 'anxious';
+conceptNet.association('/list/en/' + testWord, {
+    limit: 50
+        //filter: '/c/en/donut'
+}, function onDone(err, result) {
+    var scores = [];
+    //console.log(result);
+    for (var i = 0; i < result.similar.length; i++) {
+        var score = result.similar[i][1];
+        scores.push(score);
+    }
+    //console.log(scores);
 })
+
+// conceptNet.lookup('/c/en/' + testWord, {
+//     limit: 10,
+//     offset: 0,
+//     //features: 'driver',
+//     filter: 'core'
+// }, function onDone(err, result) {
+//     var relatedPhrases = [];
+//     for (var i = 0; i < result.edges.length; i++) {
+//       var relatedPhrase = result.edges[i].end;
+//         if (relatedPhrase != null) {
+//             relatedPhrases.push(relatedPhrase);
+//         }
+//     }
+//     console.log(relatedPhrases);
+// });
 
 
 var rita = require('rita');
@@ -81,12 +102,29 @@ grammar.addRule("<adv>", data_adv, 1);
 //console.log(grammar.hasRule("<6>"));
 //console.log(grammar.ready());
 
-var result = [];
-for (var i = 0; i < 10; i++) {
-  var oneSentence = grammar.expand();
-  var rs = rita.RiString(oneSentence);
-  oneSentence0 = rs._text.replace(rs._text.charAt(0),rs._text.charAt(0).toUpperCase());
-  result.push(oneSentence0);
+function cfgGenerate() {
+    var result = [];
+    for (var i = 0; i < 10; i++) {
+        var oneSentence = grammar.expand();
+        var rs = rita.RiString(oneSentence);
+        oneSentence0 = rs._text.replace(rs._text.charAt(0), rs._text.charAt(0).toUpperCase());
+        result.push(oneSentence0);
+    }
+    var finalResult = result.join(" ");
+    return finalResult;
 }
-var finalResult = result.join(" ");
-//console.log(finalResult);
+var cfgText = cfgGenerate();
+//console.log(cfgText);
+
+// Markov chain
+var rm = rita.RiMarkov(4);
+rm.loadFrom('markov_data/Roadside_Picnic.txt', function() {
+    console.log(rm.ready());
+    //var rmOutput = rm.generateSentences(10);
+    //console.log(rmOutput);
+    var rmOutputs = [];
+    for (var i = 0; i < 10; i++) {
+        rmOutputs[i] = rm.generateSentences(1);
+        console.log(rmOutputs[i]);
+    }
+});
