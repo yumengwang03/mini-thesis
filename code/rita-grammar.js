@@ -87,22 +87,22 @@ function getNonTerminals(pos) {
     return nonTerminals;
 }
 
-var data_noun = getNonTerminals(nouns);
-var data_verb = getNonTerminals(verbs_past);
-var data_verb_ing = getNonTerminals(verbs_ing);
-var data_adj = getNonTerminals(adjs);
-var data_adv = getNonTerminals(advs);
-
-grammar.addRule("<n>", data_noun, 1);
-grammar.addRule("<v>", data_verb, 1);
-grammar.addRule("<v_ing>", data_verb_ing, 0.5);
-grammar.addRule("<adj>", data_adj, 1);
-grammar.addRule("<adv>", data_adv, 1);
-
-//console.log(grammar.hasRule("<6>"));
-//console.log(grammar.ready());
-
 function cfgGenerate() {
+    var data_noun = getNonTerminals(nouns);
+    var data_verb = getNonTerminals(verbs_past);
+    var data_verb_ing = getNonTerminals(verbs_ing);
+    var data_adj = getNonTerminals(adjs);
+    var data_adv = getNonTerminals(advs);
+
+    grammar.addRule("<n>", data_noun, 1);
+    grammar.addRule("<v>", data_verb, 1);
+    grammar.addRule("<v_ing>", data_verb_ing, 0.5);
+    grammar.addRule("<adj>", data_adj, 1);
+    grammar.addRule("<adv>", data_adv, 1);
+
+    //console.log(grammar.hasRule("<n>"));
+    //console.log(grammar.ready());
+
     var result = [];
     for (var i = 0; i < 10; i++) {
         var oneSentence = grammar.expand();
@@ -114,17 +114,36 @@ function cfgGenerate() {
     return finalResult;
 }
 var cfgText = cfgGenerate();
-//console.log(cfgText);
+console.log(cfgText);
 
 // Markov chain
 var rm = rita.RiMarkov(4);
-rm.loadFrom('markov_data/Roadside_Picnic.txt', function() {
-    console.log(rm.ready());
-    //var rmOutput = rm.generateSentences(10);
-    //console.log(rmOutput);
+
+function markovGenerate() {
     var rmOutputs = [];
-    for (var i = 0; i < 10; i++) {
-        rmOutputs[i] = rm.generateSentences(1);
-        console.log(rmOutputs[i]);
-    }
-});
+    rm.loadFrom('markov_data/Roadside_Picnic.txt', function() {
+        console.log(rm.ready());
+        //var rmOutput = rm.generateSentences(10);
+        //console.log(rmOutput);
+        for (var i = 0; i < 10; i++) {
+            //rmOutputs.push(rm.generateSentences(1));
+            rmOutputs.push(rm.generateTokens(1));
+        }
+        console.log(rmOutputs);
+    });
+    return rmOutputs;
+}
+
+var markovText = markovGenerate();
+//console.log(markovText);
+
+function storyStructure() {
+  basicSentences = {
+    title: "Datatopia",
+    author: ["A", "B", "C"],
+    beginning: "A was travelling with B and C...",
+    galaxy_p: "They stopped by a few planets in the galaxy of emotions...",
+    
+    end: ""
+  }
+}
