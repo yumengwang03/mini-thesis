@@ -198,7 +198,7 @@ function textAssemble() {
     // this part is crappy right now
     var structure = {
         title: "Datatopia",
-        traveler: "Traveler: " + previousJson[0].name + ", " + previousJson[1].name + ", " + previousJson[2].name,
+        traveler: "Travelers: " + previousJson[0].name + ", " + previousJson[1].name + ", " + previousJson[2].name,
         boarding: directions[Math.floor(Math.random() * directions.length)] + "  To board spaceship. " + adblock,
         galaxy: directions[Math.floor(Math.random() * directions.length)] + "  This way to the Galaxy of Emotions. " + cfgText_emotion,
         landing: directions[Math.floor(Math.random() * directions.length)] + "  We are landing soon. ",

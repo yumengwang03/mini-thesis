@@ -1,4 +1,165 @@
 [{
+    "id": 1463192018297,
+    "name": "Germs Callahoon",
+    "hair": 3,
+    "spaceA": "Of course I do",
+    "emotions": ["outrageous", "delightful", "melancholic", "delusional", "confused"],
+    "lampA": ["yes", "deep personal thoughts", "nah", "not if i can help it", "yeah boi"]
+}, {
+    "id": 1463190871577,
+    "name": "kelly",
+    "hair": 2,
+    "spaceA": "yes",
+    "emotions": ["pleased", "anxious", "delightful", "melancholic", "confused"],
+    "lampA": ["yes", "everything", "no", "not that i know of", "nope", "everything", "yes", "no", "nope"]
+}, {
+    "id": 1463190515753,
+    "name": "Evan",
+    "hair": 2,
+    "spaceA": "YES!",
+    "emotions": ["delightful", "annoyed", "anxious", "optimistic", "confused"],
+    "lampA": ["sure\n", "sometimes", "yes", "a lot of things\n", "ocassionally"]
+}, {
+    "id": 1463189956945,
+    "name": "rory",
+    "hair": 1,
+    "spaceA": "never",
+    "emotions": ["pleased", "optimistic", "delightful", "delusional", "anxious"],
+    "lampA": ["YES", "some feelings", "Not really", "never!", "I have!"]
+}, {
+    "id": 1463189504938,
+    "name": "Miyeon",
+    "hair": 2,
+    "spaceA": "yes",
+    "emotions": ["melancholic", "pleased", "delusional", "bitter", "hopeless"],
+    "lampA": ["YES", "privacy", "nope", "nope", "no", "no"]
+}, {
+    "id": 1463189118162,
+    "name": "sam",
+    "hair": 2,
+    "spaceA": "I do",
+    "emotions": ["anxious", "hopeless", "annoyed", "optimistic", "bitter"],
+    "lampA": ["definitely", "my secrets", "not really but whatever", "rarely", "definitely"]
+}, {
+    "id": 1463188824130,
+    "name": "rory",
+    "hair": 3,
+    "spaceA": "yes....",
+    "emotions": ["anxious", "annoyed", "melancholic", "optimistic", "furious"],
+    "lampA": ["sort of", "everything ", "nooooooo", "nooooooo", "indeed \n"]
+}, {
+    "id": 1463188187305,
+    "name": "alonso",
+    "hair": 3,
+    "spaceA": "not really",
+    "emotions": ["delusional", "hopeless", "delightful", "melancholic", "confused"],
+    "lampA": ["ya\n", "my life", "nope", "by mistake", "yup"]
+}, {
+    "id": 1463187888906,
+    "name": "Danli",
+    "hair": 2,
+    "spaceA": "dsfsdf",
+    "emotions": ["confused", "delusional", "optimistic", "anxious", "bitter"],
+    "lampA": ["dfas", "sdafd", "df", "dsf", "sdf"]
+}, {
+    "id": 1463186948418,
+    "name": "sue",
+    "hair": 1,
+    "spaceA": "no",
+    "emotions": ["optimistic", "delightful", "pleased", "confused", "outrageous"],
+    "lampA": ["yes", "my name", "no", "no", "no"]
+}, {
+    "id": 1463186429465,
+    "name": "McGrath",
+    "hair": 3,
+    "spaceA": "Yes\n",
+    "emotions": ["optimistic", "pleased", "confused", "delightful", "outrageous"],
+    "lampA": ["yes", "my age", "no", "sometimes", "yes"]
+}, {
+    "id": 1463186019025,
+    "name": "Becky",
+    "hair": 2,
+    "spaceA": "No",
+    "emotions": ["melancholic", "optimistic", "pleased", "outrageous", "delightful"],
+    "lampA": ["Yes", "No", "Yes", "My personal life", "No"]
+}, {
+    "id": 1463185733897,
+    "name": "xin",
+    "hair": 1,
+    "spaceA": "yes",
+    "emotions": ["optimistic", "melancholic", "outrageous", "pleased", "annoyed"],
+    "lampA": ["yes", "no", "yes", "sometimes", "almost everything"]
+}, {
+    "id": 1463185243665,
+    "name": "Esta",
+    "hair": 2,
+    "spaceA": "Sometimes, yes. ",
+    "emotions": ["optimistic", "outrageous", "confused", "delightful", "pleased"],
+    "lampA": ["Yes.", "My shame. ", "No, never. ", "Occasionally. ", "Yes, on occasion. "]
+}, {
+    "id": 1463184840129,
+    "name": "Phoebe and Jane",
+    "hair": 2,
+    "spaceA": "Yes",
+    "emotions": ["optimistic", "delightful", "delusional", "confused", "hopeless"],
+    "lampA": ["NO", "My personal information", "No", "No", "No"]
+}, {
+    "id": 1463184419569,
+    "name": "Mala",
+    "hair": 3,
+    "spaceA": "Never!",
+    "emotions": ["delusional", "anxious", "furious", "hopeless", "confused"],
+    "lampA": ["Yes, it's probably not great", "Not really but it's ok", "Yes", "My true feelings", "Never!"]
+}, {
+    "id": 1463184179545,
+    "name": "Jed",
+    "hair": 2,
+    "spaceA": "No",
+    "emotions": ["melancholic", "delightful", "confused", "optimistic", "outrageous"],
+    "lampA": ["Yes", "Insecurities", "Hell no", "No", "Yeah"]
+}, {
+    "id": 1463183783314,
+    "name": "Micaiah",
+    "hair": 2,
+    "spaceA": "Yes",
+    "emotions": ["pleased", "annoyed", "optimistic", "anxious", "delightful"],
+    "lampA": ["Yes", "My room", "No", "No", "No"]
+}, {
+    "id": 1463183341665,
+    "name": "leah",
+    "hair": 3,
+    "spaceA": "yes\n",
+    "emotions": ["pleased", "outrageous", "anxious", "furious", "annoyed"],
+    "lampA": ["yes\n", "age", "sometimes\n", "yes", "yes"]
+}, {
+    "id": 1463182890346,
+    "name": "anne",
+    "hair": 2,
+    "spaceA": "yes",
+    "emotions": ["bitter", "anxious", "outrageous", "hopeless", "confused"],
+    "lampA": ["yes", "man", "no", "yes by misstake", "no"]
+}, {
+    "id": 1463182238009,
+    "name": "Nelson",
+    "hair": 3,
+    "spaceA": "no",
+    "emotions": ["optimistic", "bitter", "delightful", "confused", "melancholic"],
+    "lampA": ["not really", "Mmmm..........", "No.........\\\\\\\\\\\\\\\\\\\\", "No", "no"]
+}, {
+    "id": 1463181656657,
+    "name": "sven",
+    "hair": 3,
+    "spaceA": "No",
+    "emotions": ["optimistic", "delusional", "anxious", "delightful", "hopeless"],
+    "lampA": ["No", "Most things", "Absolutely not", "Sometimes", "Yes"]
+}, {
+    "id": 1463179216818,
+    "name": "nobo",
+    "hair": 2,
+    "spaceA": "Yes",
+    "emotions": ["anxious", "annoyed", "confused", "hopeless", "delightful"],
+    "lampA": ["Yes", "Personal Info", "Nope", "Nope", "Nope\n"]
+}, {
     "id": 1463134323691,
     "name": "Yue",
     "hair": 2,
